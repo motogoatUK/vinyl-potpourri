@@ -9,9 +9,24 @@
 
 <body>
     <h1>Records list</h1>
-    {% for record in object_list %}
-    <h2>{{record}}</h2>
-    {% endfor %}
+    <table>
+        <thead>
+            <tr>
+                <td>Title</td>
+                <td>B Side</td>
+                <td>Spindle</td>
+                <td>link</td>
+            </tr>
+        </thead>
+        {% for record in object_list %}
+        <tr>
+            <td><h2>{{record}}</h2></td>
+            <td>{{record.b_side}}</td>
+            <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
+            <td><a href="record/{{record.slug}}">{{record.slug}}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 
 </html>

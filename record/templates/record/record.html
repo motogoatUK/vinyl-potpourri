@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record View</title>
+</head>
+
+<body>
+    <h1>Record View</h1>
+    <h2>{{record}}</h2>
+    <p>Artist: {{artist}} | Title: {{record.a_side}} | B Side: {{record.b_side}}</p>
+    <p>Spindle size: {% if record.large_hole %}Large{% else %}Small{% endif %} | slug: {{record.slug}}</p>
+    <p>Notes:<br>{{record.notes}}</p>
+</body>
+
+</html>

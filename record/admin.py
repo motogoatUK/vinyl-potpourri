@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Record
+from .models import Record, Artist
 
 
-admin.site.register(Record)
+@admin.register(Record)
+class RecordAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('a_side',)}
+
+
+admin.site.register(Artist)
