@@ -1,19 +1,22 @@
 from django.db import models
-
-# Create your models here.
-"""
-A single instance of Record relating to collection, artist and location
-
-artist references Artist.name by default and is set to Unknown initially
-"""
+from collection.models import Collection, Location
 
 
 def get_default_artist():
+    """
+    get_default_artist returns 'Unknown'
+    creates the db record if it doesn't exist
+    """
     return Artist.objects.get_or_create(name='Unknown')
 
 
 class Record(models.Model):
-    a_side = models.CharField(max_length=80, blank=False, unique=True)
+    """
+    A single instance of Record relating to collection, artist and location
+
+    artist references Artist.name by default and is set to Unknown initially
+    """
+    a_side = models.CharField(max_length=80, blank=False)
     b_side = models.CharField(max_length=80, blank=True)
     large_hole = models.BooleanField(default=False)
     notes = models.TextField(null=True, blank=True)
@@ -25,9 +28,22 @@ class Record(models.Model):
         on_delete=models.SET_DEFAULT,
         default=get_default_artist
     )
+    location = models.ForeignKey(
+        Location,
+        to_field='name',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    collection = models.ForeignKey(
+        Collection,
+        to_field='name',
+        on_delete=models.CASCADE,
+        blank=False,
+        null=True,
+    )
 
     def __str__(self):
-        return f'{self.a_side} by {self.artist}'
+        return f'{id}: {self.a_side} by {self.artist}'
 
 
 class Artist(models.Model):
