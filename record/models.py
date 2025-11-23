@@ -37,7 +37,6 @@ class Record(models.Model):
     )
     collection = models.ForeignKey(
         Collection,
-        to_field='name',
         on_delete=models.CASCADE,
         blank=False,
         null=True,
