@@ -32,7 +32,8 @@ class Record(models.Model):
         Location,
         to_field='name',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True,
     )
     collection = models.ForeignKey(
         Collection,
@@ -43,7 +44,7 @@ class Record(models.Model):
     )
 
     def __str__(self):
-        return f'{id}: {self.a_side} by {self.artist}'
+        return f'{self.id}: {self.a_side} by {self.artist}'
 
 
 class Artist(models.Model):

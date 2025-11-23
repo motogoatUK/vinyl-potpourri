@@ -11,7 +11,7 @@ class RecordAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
         if not change:  # only on creation
-            obj.slug = f"{obj.a_side}-{obj.id}"
+            obj.slug = f"{obj.slug}-{obj.id}"
             obj.save()
 
 
