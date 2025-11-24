@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.views import generic
 from django.shortcuts import render, get_object_or_404
 from .models import Collection
@@ -7,6 +6,12 @@ from record.models import Record
 
 class CollectionList(generic.ListView):
     model = Collection
+
+
+def index(request):
+    collection_list = Collection.objects.all()
+    context = {"collection_list": collection_list}
+    return render(request, 'index.html', context)
 
 
 def view_collection(request, id):

@@ -2,7 +2,7 @@
 {% block title %}Collection List{% endblock %}
 
 {% block content %}
-    <h1>Collections</h1>
+    <h2>Collections</h2>
     <table>
         <thead>
             <tr>
@@ -13,9 +13,9 @@
         </thead>
         {% for collection in object_list %}
         <tr>
-            <td><h2>{{collection}}</h2></td>
+            <td><strong>{{collection}}</strong></td>
             <td>{{collection.username}}</td>
-            <td><a href="collection/{{collection.id}}/">{{collection}}</a></td>
+            <td><a href="/collection/{{collection.id}}/">{{collection}}</a></td>
         </tr>
         {% endfor %}
     </table>

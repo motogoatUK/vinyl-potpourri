@@ -2,7 +2,7 @@
 {% block title %}Record List{% endblock %}
 
 {% block content %}
-    <h1>Records list - {% if collection %}{{collection}}{%endif%}</h1>
+    <h2>Records list{% if collection %} - from collection: {{collection}}{%endif%}</h2>
     <table>
         <thead>
             <tr>
@@ -14,7 +14,7 @@
         </thead>
         {% for record in object_list %}
         <tr>
-            <td><h2>{{record}}</h2></td>
+            <td><strong>{{record}}</strong></td>
             <td>{{record.b_side}}</td>
             <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
             <td><a href="/record/{{record.slug}}">{{record.slug}}</a></td>
