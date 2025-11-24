@@ -25,7 +25,7 @@ class Location(models.Model):
     name = models.TextField(max_length=100, unique=True,)
     collection = models.ForeignKey(
         Collection,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         )

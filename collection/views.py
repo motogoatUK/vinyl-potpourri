@@ -10,12 +10,16 @@ class CollectionList(generic.ListView):
 
 
 def view_collection(request, id):
-    # Get list of records from collection
+    """
+    Gets a list of records from collection
+    and sends them to the template
+    """
     record_list = Record.objects.filter(collection__in=id)
-    #  collection = get_object_or_404(queryset, id)
+    collection = get_object_or_404(Collection, pk=id)
     template = 'record/record_list.html'
     context = {
-        "object_list": record_list
+        "object_list": record_list,
+        "collection": collection
     }
     return render(
         request, template, context

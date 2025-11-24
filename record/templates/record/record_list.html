@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h1>Records list</h1>
+    <h1>Records list - {% if collection %}{{collection}}{%endif%}</h1>
     <table>
         <thead>
             <tr>
@@ -23,7 +23,7 @@
             <td><h2>{{record}}</h2></td>
             <td>{{record.b_side}}</td>
             <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
-            <td><a href="record/{{record.slug}}">{{record.slug}}</a></td>
+            <td><a href="/record/{{record.slug}}">{{record.slug}}</a></td>
         </tr>
         {% endfor %}
     </table>
