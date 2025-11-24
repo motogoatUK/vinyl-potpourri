@@ -2,11 +2,13 @@
 {% block title %}Record View{% endblock %}
 
 {% block content %}
-<a href="{% url 'home' %}">Home</a>
+
     <h2>Record View</h2>
     <strong>{{record}}</strong>
+    <p>Location: {{record.location}}</p>
     <p>Artist: {{artist}} | Title: {{record.a_side}} | B Side: {{record.b_side}}</p>
     <p>Spindle size: {% if record.large_hole %}Large{% else %}Small{% endif %} | slug: {{record.slug}}</p>
     <p>Notes:<br>{{record.notes}}</p>
+    <p>Collection: {{record.collection}}</p>
 
 {% endblock %}

@@ -9,6 +9,7 @@ from collection import urls as collection_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('record/', include(record_urls), name='record_urls'),
     path('', include(collection_urls), name='collection_urls'),
 ]
