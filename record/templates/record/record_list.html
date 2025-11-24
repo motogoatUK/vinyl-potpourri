@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block title %}Record List{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Record List</title>
-</head>
-
-<body>
+{% block content %}
     <h1>Records list - {% if collection %}{{collection}}{%endif%}</h1>
     <table>
         <thead>
@@ -27,6 +21,4 @@
         </tr>
         {% endfor %}
     </table>
-</body>
-
-</html>
+{% endblock %}
