@@ -2,6 +2,7 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 {{block.super}}
+<hr>
 <h2>Collections</h2>
     {% for collection in collection_list %}
     <p>{{collection.username}}'s <strong>{{collection}}</strong> collection:

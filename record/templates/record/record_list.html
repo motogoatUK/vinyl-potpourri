@@ -5,16 +5,16 @@
     <h2>Records list{% if collection %} - from collection: {{collection}}{%endif%}</h2>
     <table>
         <thead>
-            <tr>
-                <td>Title</td>
-                <td>B Side</td>
-                <td>Spindle</td>
-                <td>link</td>
+            <tr class="title-font">
+                <th>Title</th>
+                <th>B Side</th>
+                <th>Spindle</th>
+                <th>link</th>
             </tr>
         </thead>
         {% for record in object_list %}
         <tr>
-            <td><strong>{{record}}</strong></td>
+            <td class="copy-bold">{{record}}</td>
             <td>{{record.b_side}}</td>
             <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
             <td><a href="/record/{{record.slug}}">{{record.slug}}</a></td>

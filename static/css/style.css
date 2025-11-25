@@ -1,4 +1,50 @@
+/* Colours from coolors.co */
+
+:root {
+    --main-brand:#2081a2;
+    --light-accent:#eab380;    
+    --light-shade:#63ad9d;
+    --dark-accent: #8c364d;
+    --dark-shade: #040b26;
+    /* Bootstrap colour tweaks by colormind.io */
+    --primary: #2789b6;
+    --info: #040b26;
+    --success: #41a46f;
+    --warning: #be9437 ;
+    --danger: #f44336;
+    /* Fonts */
+    --heading-font: "Pacifico", cursive;
+    --title-font: "Handlee", cursive;
+    --copy-font: "Maitree", serif;
+}
+
+/* Google Fonts via Fontjoy.com */
+.heading-font {
+  font-family: var(--heading-font);
+  font-weight: 400;
+  font-style: normal;
+}
+.title-font{
+  font-family: var(--title-font);
+}
+.copy-font {
+  font-family: var(--copy-font);
+}
+.copy-bold {
+  font-family: var(--copy-font);
+  font-weight: 700;
+}
+
 body {
-    background-color:teal;
-    color:aliceblue;
+    font-family: var(--copy-font);
+    font-weight: 400;
+    background-color:var(--dark-shade);
+    color:var(--light-accent);
+}
+
+a {
+    font-family: var(--title-font);
+    color: var(--light-shade);
+}
+h1, h2 {font-family: var(--heading-font);
 }
