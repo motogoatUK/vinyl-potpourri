@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = False
 DEBUG = os.environ.get('DEBUG')  # Allow env.py to set debug for dev server
 
-ALLOWED_HOSTS = ['.herokuapp',
+ALLOWED_HOSTS = ['.herokuapp.com',
                  '127.0.0.1',]
 
 
