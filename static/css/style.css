@@ -46,11 +46,18 @@ a {
     font-family: var(--title-font);
     color: var(--light-shade);
 }
+
+.nav-item {
+    background-color:#040b26;
+    border: #040b26 solid 1px;
+    margin:4px 2px;
+}
 .nav-link:hover {
     color: var(--main-brand);
 }
 .active { 
     font-weight: bold;
+    color: var(--light-shade);
 }
 h1, h2 {font-family: var(--heading-font);
 }

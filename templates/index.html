@@ -5,9 +5,14 @@
 <!-- don't overwrite existing header from base.html -->
 {{block.super}}
 <h2>Collections</h2>
+<div class="row">
     {% for collection in collection_list %}
-    <p>{{collection.username}}'s <strong>{{collection}}</strong> collection:
-        <a href="/collection/{{collection.id}}/">{{collection}}</a>
-    </p>
+
+    <div class="col-12 col-sm-6 col-md-3">
+        <p class="card">{{collection.username}}'s <strong>{{collection}}</strong> collection:
+            <a href="/collection/{{collection.id}}/">{{collection}}</a>
+        </p>
+    </div>
     {% endfor %}
+</div>
 {% endblock %}
