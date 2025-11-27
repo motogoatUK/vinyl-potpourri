@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
-{% block content %}
+
+{% block main_content %}
+<!-- don't overwrite existing header from base.html -->
 {{block.super}}
-<hr>
 <h2>Collections</h2>
     {% for collection in collection_list %}
     <p>{{collection.username}}'s <strong>{{collection}}</strong> collection:
