@@ -29,48 +29,54 @@
 </head>
 
 <body>
-    <div id="outer-container" class="container-fluid">
+    <!-- dflex flex-column and min-vh-100 sets the conatier to be full viewport height -->
+    <div id="outer-container" class="container-fluid d-flex flex-column min-vh-100">
         <!-- navbar sticky and shown above sm size -->
-        <nav id="navbar" class="navbar navbar-expand-sm sticky-top navbar-dark">
-            <a class="navbar-brand">Vinyl Potpourri</a>
-            <!-- navbar toggle code from bootstrap docs -->
-             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link{% if request.path == home_url %} active" aria-current="page{% endif %}"
-                            href="{{ home_url }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link{% if request.path == record_url %} active" aria-current="page{% endif %}"
-                            href="{{ record_url }}">All Records</a>
-                    </li>
-                    <li class="nav-item">
-                        {% if user.is_authenticated %}
-                        <a class="nav-link{% if request.path == logout_url %} active" aria-current="page{% endif %}"
-                            href="{{logout_url}}">Logout
-                        </a>
-                        {% else %}
-                        <a class="nav-link{% if request.path == login_url %} active" aria-current="page{% endif %}"
-                            href="{{login_url}}">Login
-                        </a>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == register_url %} active" aria-current="page{% endif %}"
-                            href="{{ register_url }}">Register</a>
-                    </li>
-                    {% endif %}
-                    </li>
-                </ul>
+        <nav id="navbar" class="navbar navbar-expand-sm sticky-top navbar-dark bg-dark px-2">
+            <div class="container">
+                <a class="navbar-brand">Vinyl Potpourri</a>
+                <!-- navbar toggle code from bootstrap docs -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link{% if request.path == home_url %} active" aria-current="page{% endif %}"
+                                href="{{ home_url }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link{% if request.path == record_url %} active" aria-current="page{% endif %}"
+                                href="{{ record_url }}">All Records</a>
+                        </li>
+                        <li class="nav-item ms-auto">
+                            {% if user.is_authenticated %}
+                            <a class="nav-link{% if request.path == logout_url %} active" aria-current="page{% endif %}"
+                                href="{{logout_url}}">Logout
+                            </a>
+                            {% else %}
+                            <a class="nav-link{% if request.path == login_url %} active" aria-current="page{% endif %}"
+                                href="{{login_url}}">Login
+                            </a>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == register_url %} active"
+                                aria-current="page{% endif %}" href="{{ register_url }}">Register</a>
+                        </li>
+                        {% endif %}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <main class="container-lg">
             {% block main_content %}
-            <h1>Welcome to Vinyl Potpourri</h1>
-            <hr>
+            <header class="row">
+                <h1 class="my-4 col-12">Welcome to Vinyl Potpourri</h1>
+                <img class="col-12" src="{% static 'images/vinyl-potpourri-gemini_image_land.png' %}">
+                <hr>
+            </header>
             {% endblock %}
             <!-- content block used by allauth -->
             {% block content %}{% endblock %}
