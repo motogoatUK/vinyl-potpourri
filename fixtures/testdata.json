@@ -1,0 +1,571 @@
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$I83VSMEoAso1XnQJJkSv2E$cPEjHKX9cBvawPVAi/xMK+TfpwdlWf7NHF9zR/N1dEk=",
+    "last_login": "2025-11-27T16:44:52.242Z",
+    "is_superuser": true,
+    "username": "motogoatuk",
+    "first_name": "",
+    "last_name": "",
+    "email": "muk@motogoat.co.uk",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-11-20T17:23:47.576Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sites.site",
+  "fields": {
+    "domain": "vinyl-potpourri.example.com",
+    "name": "Vinyl Potpourri"
+  }
+},
+{
+  "model": "collection.collection",
+  "pk": 1,
+  "fields": {
+    "name": "Collection One",
+    "username": [
+      "motogoatuk"
+    ]
+  }
+},
+{
+  "model": "collection.collection",
+  "pk": 2,
+  "fields": {
+    "name": "80's hits",
+    "username": [
+      "motogoatuk"
+    ]
+  }
+},
+{
+  "model": "record.record",
+  "pk": 1,
+  "fields": {
+    "a_side": "It's all about that Bass",
+    "b_side": "",
+    "large_hole": false,
+    "notes": "no Treble!!",
+    "slug": "its-all-about-that-bass-1",
+    "artist": "Unknown",
+    "location": null,
+    "collection": 1
+  }
+},
+{
+  "model": "record.record",
+  "pk": 2,
+  "fields": {
+    "a_side": "I'm still standing",
+    "b_side": "yes",
+    "large_hole": false,
+    "notes": "Just About",
+    "slug": "im-still-standing-2",
+    "artist": "Unknown",
+    "location": null,
+    "collection": 1
+  }
+},
+{
+  "model": "record.record",
+  "pk": 3,
+  "fields": {
+    "a_side": "China in your Hand",
+    "b_side": "",
+    "large_hole": false,
+    "notes": "T'pau, Bonk, Pow",
+    "slug": "china-in-your-hand-3",
+    "artist": "Unknown",
+    "location": null,
+    "collection": 2
+  }
+},
+{
+  "model": "record.record",
+  "pk": 4,
+  "fields": {
+    "a_side": "Two Tribes",
+    "b_side": "",
+    "large_hole": false,
+    "notes": "FGTH!",
+    "slug": "two-tribes-4",
+    "artist": "Unknown",
+    "location": null,
+    "collection": 2
+  }
+},
+{
+  "model": "record.artist",
+  "pk": 1,
+  "fields": {
+    "name": "Unknown"
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "motogoatuk"
+    ],
+    "email": "muk@motogoat.co.uk",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-11-21T13:58:58.041Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "1",
+    "object_repr": "I'm still standing by Artist",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-11-21T15:40:06.523Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "1",
+    "object_repr": "It's all about that Bass by Artist object (1)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-11-21T15:48:47.179Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "1",
+    "object_repr": "It's all about that Bass by Artist object (1)",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-11-21T15:49:06.996Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "1",
+    "object_repr": "It's all about that Bass by Artist object (1)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-11-21T15:57:21.171Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "artist"
+    ],
+    "object_id": "1",
+    "object_repr": "Artist object (1)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-11-21T16:08:07.531Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "artist"
+    ],
+    "object_id": "1",
+    "object_repr": "Artist object (1)",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-11-21T17:03:25.894Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "1",
+    "object_repr": "It's all about that Bass by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2025-11-22T17:00:27.230Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "collection",
+      "collection"
+    ],
+    "object_id": "1",
+    "object_repr": "Collection object (1)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2025-11-22T18:06:14.968Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "1",
+    "object_repr": "<built-in function id>: It's all about that Bass by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2025-11-22T18:08:17.331Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "1",
+    "object_repr": "<built-in function id>: It's all about that Bass by Unknown",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2025-11-22T18:08:35.816Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "2",
+    "object_repr": "<built-in function id>: It's all about that Bass by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2025-11-22T18:12:25.066Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "3",
+    "object_repr": "3: It's all about that Bass by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2025-11-22T18:18:41.811Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "4",
+    "object_repr": "4: It's all about that Bass by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2025-11-22T21:45:21.479Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "4",
+    "object_repr": "4: It's all about that Bass by Unknown",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Slug\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2025-11-22T21:46:38.881Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "4",
+    "object_repr": "4: It's all about that Bass by Unknown",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2025-11-22T21:46:38.881Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "3",
+    "object_repr": "3: It's all about that Bass by Unknown",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2025-11-22T21:46:38.881Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "2",
+    "object_repr": "2: It's all about that Bass by Unknown",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2025-11-22T21:46:57.560Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "5",
+    "object_repr": "5: It's all about that Bass by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2025-11-22T21:47:40.811Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "6",
+    "object_repr": "6: I'm still standing by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2025-11-23T15:36:30.310Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "1",
+    "object_repr": "1: It's all about that Bass by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2025-11-23T15:36:52.825Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "2",
+    "object_repr": "2: I'm still standing by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2025-11-24T17:47:38.986Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "collection",
+      "collection"
+    ],
+    "object_id": "2",
+    "object_repr": "80's hits",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2025-11-24T17:49:10.390Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "3",
+    "object_repr": "3: China in your Hand by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2025-11-24T17:49:53.401Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "record",
+      "record"
+    ],
+    "object_id": "4",
+    "object_repr": "4: Two Tribes by Unknown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2025-11-24T19:21:55.767Z",
+    "user": [
+      "motogoatuk"
+    ],
+    "content_type": [
+      "sites",
+      "site"
+    ],
+    "object_id": "1",
+    "object_repr": "vinyl-potpourri.example.com",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Domain name\", \"Display name\"]}}]"
+  }
+}
+]
