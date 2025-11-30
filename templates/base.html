@@ -68,6 +68,9 @@
                         </li>
                     </ul>
                 </div>
+                {% if user.is_authenticated %}
+                Logged in as {{ user }}
+                {% endif %}
             </div>
         </nav>
         <main class="container-lg">
