@@ -16,7 +16,7 @@ class TestRecordViews(TestCase):
         self.assertSetEqual(
             response.context['record_list'], Record.objects.all())
 
-    def test_ordering_by_artist(self):
+    def test_ordering_by_slug(self):
         """ Tests for ordering by slug"""
         response = self.client.get(reverse('all_records') + '?ordering=slug')
         self.assertEqual(response.status_code, 200)

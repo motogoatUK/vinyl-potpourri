@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from my_profile.models import My_Profile
 
 
 class Collection(models.Model):
@@ -9,7 +9,7 @@ class Collection(models.Model):
     """
     name = models.CharField(max_length=80, blank=False, null=True, unique=True)
     username = models.ForeignKey(
-        User,
+        My_Profile,
         on_delete=models.CASCADE
     )
 
