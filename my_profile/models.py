@@ -10,4 +10,4 @@ class My_Profile(models.Model):
     exp_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user.username}'s profile"
+        return f"{self.user}"
