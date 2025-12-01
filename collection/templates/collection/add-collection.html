@@ -1,0 +1,12 @@
+ <div class="row">
+        <div class="col-12 col-md-6">
+            <form method="post" action="{% url 'add_collection' %}" class="form mb-2" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <div class="text-right">
+                    <a class="btn btn-outline-black rounded-0" href="{% url 'collections' %}">Cancel</a>
+                    <button class="btn btn-black rounded-0" type="submit">Add Collection</button>
+                </div>
+            </form>
+        </div>
+    </div>
