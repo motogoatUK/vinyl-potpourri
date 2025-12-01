@@ -81,11 +81,12 @@
             {% block main_content %}
             <header class="row">
                 <h1 class="my-4 col-12">Welcome to Vinyl Potpourri {% if user.is_authenticated %} - {{ user }}
-                {% endif %}</h1>
-                <img class="col-12" src="{% static 'images/vinyl-potpourri-gemini_image_land.png' %}">
+                {% endif %}</h1>                
+                {% block header-image %} <img class="col-12" src="{% static 'images/vinyl-potpourri-land200.png' %}">
+                {% endblock header-image %}
                 <hr>
             </header>
-            {% endblock %}
+            {% endblock main_content %}
             <!-- content block used by allauth -->
             {% block content %}{% endblock %}
         </main>

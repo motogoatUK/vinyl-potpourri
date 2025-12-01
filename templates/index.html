@@ -1,9 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Home{% endblock %}
 
-{% block main_content %}
 <!-- don't overwrite existing header from base.html -->
-{{block.super}}
+{% block header-image %}
+ <img class="col-12" src="{% static 'images/vinyl-potpourri-gemini_image_land.png' %}">
+{% endblock header-image %}
+    {% block content %}
 <h2>Collections</h2>
 <div class="row">
     {% for collection in collection_list %}
