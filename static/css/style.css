@@ -61,3 +61,16 @@ a {
 }
 h1, h2 {font-family: var(--heading-font);
 }
+/* styles for message container */
+.message-container {
+    position: fixed;
+    top: 72px;
+    right: 15px;
+    z-index: 9999;
+}
+.custom-toast {
+    overflow: visible;
+}
+.toast-capper {
+    height: 2px;
+}

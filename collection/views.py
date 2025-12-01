@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.views import generic
 from django.shortcuts import redirect, render, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from my_profile.models import My_Profile
 
@@ -41,9 +42,10 @@ def add_collection(request):
     """ Add a new collection """
     profile = get_object_or_404(My_Profile, user=request.user)
     current_collections = Collection.objects.filter(username=profile.user.id)
-
+    #  only users without a current collection
+    #  and premium users are allowed to add a collection
     if current_collections and not profile.premium:
-        print(request, 'Sorry, only premium users can do that.')
+        messages.warning(request, 'Sorry, only premium users can do that.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
@@ -53,11 +55,10 @@ def add_collection(request):
             myform = form.save(commit=False)
             myform.username_id = profile.id
             myform.save()
-            # messages.success(request, 'Successfully added Collection!')
-            print('Successfully added Collection!')
+            messages.success(request, 'Successfully added Collection!')
             return redirect('collections')
         else:
-            # messages.error(request, 'Failed to add Collection.')
+            messages.error(request, 'Failed to add Collection.')
             print(request, 'Failed to add Collection.')
     else:
         form = CollectionForm()
