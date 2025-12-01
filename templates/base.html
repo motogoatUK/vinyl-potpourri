@@ -3,6 +3,7 @@
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as register_url %}
 {% url 'account_logout' as logout_url %}
+{% url 'my_profile' as profile_url %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -66,17 +67,21 @@
                         </li>
                         {% endif %}
                         </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.path == profile_url %} active"
+                                aria-current="page{% endif %}" href="{{ profile_url }}">My Profile</a>
+                            </li>
+                        {% endif %}
                     </ul>
-                </div>
-                {% if user.is_authenticated %}
-                Logged in as {{ user }}
-                {% endif %}
+                </div>                
             </div>
         </nav>
         <main class="container-lg">
             {% block main_content %}
             <header class="row">
-                <h1 class="my-4 col-12">Welcome to Vinyl Potpourri</h1>
+                <h1 class="my-4 col-12">Welcome to Vinyl Potpourri {% if user.is_authenticated %} - {{ user }}
+                {% endif %}</h1>
                 <img class="col-12" src="{% static 'images/vinyl-potpourri-gemini_image_land.png' %}">
                 <hr>
             </header>
