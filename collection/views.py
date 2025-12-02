@@ -25,7 +25,7 @@ def view_collection(request, id):
     Gets a list of records from collection
     and sends them to the template
     """
-    record_list = Record.objects.filter(collection__in=id)
+    record_list = Record.objects.filter(collection=id)
     collection = get_object_or_404(Collection, pk=id)
     template = 'record/record_list.html'
     context = {
@@ -59,7 +59,6 @@ def add_collection(request):
             return redirect('collections')
         else:
             messages.error(request, 'Failed to add Collection.')
-            print(request, 'Failed to add Collection.')
     else:
         form = CollectionForm()
 
