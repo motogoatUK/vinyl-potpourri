@@ -11,11 +11,11 @@
 <div class="row">
     {% for collection in collection_list %}
 
-    <div class="col-12 col-sm-6 col-md-3">
+    <article class="col-12 col-sm-6 col-md-3">
         <p class="card">{{collection.username.name}}'s <strong>{{collection}}</strong> collection:
             <a href="/collection/{{collection.id}}/">{{collection}}</a>
         </p>
-    </div>
+    </article>
     {% endfor %}
 </div>
 {% endblock %}

@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}My Profile{% endblock %}
 {% block content %}
-<h2>{{ profile }}</h2>
-<p>
-    Name: {{ profile.name }} | id: {{ profile.id }}<br>
-    {% if profile.premium %}Premium{% else %}User{% endif %}<br>
-    Sub Date: {{ profile.sub_date }} | Sub End Date: {{ profile.exp_date }}
-</p>
+<section id="profile">
+    <h2>{{ profile }}</h2>
+    <p>
+        Name: {{ profile.name }}<br>
+        Status: {% if profile.premium %}Premium<br>
+        Sub Date: {{ profile.sub_date }} (expires {{ profile.exp_date }})
+        {% else %}Standard User</p>
+        <p><a class="btn btn-outline-warning rounded-0" href="#">Upgrade to Premium</a>
+{% endif %}
+    </p>
+    <a class="btn btn-outline-primary rounded-0" href="{%url 'add_collection'%}">Add Collection</a>
+</section>
 {% endblock %}

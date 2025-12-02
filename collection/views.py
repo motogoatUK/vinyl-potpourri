@@ -41,12 +41,16 @@ def view_collection(request, id):
 def add_collection(request):
     """ Add a new collection """
     profile = get_object_or_404(My_Profile, user=request.user)
-    current_collections = Collection.objects.filter(username=profile.user.id)
+    current_collections = Collection.objects.filter(username=profile.id)
+
     #  only users without a current collection
     #  and premium users are allowed to add a collection
     if current_collections and not profile.premium:
-        messages.warning(request, 'Sorry, only premium users can do that.')
-        return redirect(reverse('home'))
+        messages.warning(
+            request,
+            'Sorry, only premium users can have more than one collection.'
+            )
+        return redirect(reverse('my_profile'))
 
     if request.method == 'POST':
         form = CollectionForm(request.POST, request.FILES)
