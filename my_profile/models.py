@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class My_Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, unique=True)
     premium = models.BooleanField(default=False)
     sub_date = models.DateField(null=True, blank=True)
     exp_date = models.DateField(null=True, blank=True)
