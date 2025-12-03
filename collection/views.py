@@ -19,7 +19,7 @@ class CollectionList(generic.ListView):
 class MyCollection(generic.ListView):
     """ returns a users collections """
     def get_queryset(self):
-        return Collection.objects.filter(username=self.request.user.my_profile)
+        return Collection.objects.filter(username__user=self.request.user)
 
 
 def index(request):

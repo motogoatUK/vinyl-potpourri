@@ -58,10 +58,9 @@ def edit_record(request, slug):
                 messages.success(request, 'Successfully modified Record!')
                 return redirect('view_collection', id=record.collection_id)
             else:
-                print(form)
                 messages.error(request, 'Failed to modify Record.')
         else:
-            form = RecordForm(instance=record)
+            form = RecordForm(instance=record, user=request.user)
 
         template = 'record/edit-record.html'
         context = {
