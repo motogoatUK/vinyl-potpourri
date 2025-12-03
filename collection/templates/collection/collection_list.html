@@ -2,21 +2,24 @@
 {% block title %}Collection List{% endblock %}
 
 {% block main_content %}
-    <h2>Collections</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <td>Name</td>
-                <td>Owner</td>
-                <td>link</td>
-            </tr>
-        </thead>
-        {% for collection in object_list %}
+<h2>Collections</h2>
+<table class="table">
+    <thead>
         <tr>
-            <td><strong>{{collection}}</strong></td>
-            <td>{{collection.username}}</td>
-            <td><a href="/collection/{{collection.id}}/">{{collection}}</a></td>
+            <td>Name</td>
+            <td>Owner</td>
+            <td>links</td>
         </tr>
-        {% endfor %}
-    </table>
+    </thead>
+    {% for collection in object_list %}
+    <tr>
+        <td><strong>{{collection}}</strong></td>
+        <td>{{collection.username}}</td>
+        <td>
+            <a href="/collection/{{collection.id}}/">view</a> | <a
+                href="/collection/edit/{{collection.id}}/">edit</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}

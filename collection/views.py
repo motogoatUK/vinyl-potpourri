@@ -14,7 +14,14 @@ class CollectionList(generic.ListView):
     model = Collection
 
 
+class MyCollection(generic.ListView):
+    """ returns a users collections """
+    def get_queryset(self):
+        return Collection.objects.filter(username=self.request.user.my_profile)
+
+
 def index(request):
+    """ returns all collections to show on the homepage """
     collection_list = Collection.objects.all()
     context = {"collection_list": collection_list}
     return render(request, 'index.html', context)
@@ -39,12 +46,13 @@ def view_collection(request, id):
 
 @login_required
 def add_collection(request):
-    """ Add a new collection """
+    """
+    Add a new collection - only users without a current collection
+    and premium users are allowed to add a collection
+    """
     profile = get_object_or_404(My_Profile, user=request.user)
     current_collections = Collection.objects.filter(username=profile.id)
 
-    #  only users without a current collection
-    #  and premium users are allowed to add a collection
     if current_collections and not profile.premium:
         messages.warning(
             request,
@@ -60,7 +68,7 @@ def add_collection(request):
             myform.username_id = profile.id
             myform.save()
             messages.success(request, 'Successfully added Collection!')
-            return redirect('collections')
+            return redirect('my_collection')
         else:
             messages.error(request, 'Failed to add Collection.')
     else:
@@ -69,6 +77,37 @@ def add_collection(request):
     template = 'collection/add-collection.html'
     context = {
         'form': form,
+        'head_tag': 'Add',
+        'submit_text': 'Add Collection',
+    }
+
+    return render(request, template, context)
+
+
+def edit_collection(request, id):
+    """
+    returns a form containing the collection data for editing
+    Use same template as add_collection by adding extra context
+    """
+    collection = get_object_or_404(Collection, pk=id)
+    if request.method == 'POST':
+        form = CollectionForm(request.POST, request.FILES, instance=collection)
+        if form.is_valid():
+            myform = form.save(commit=False)
+            # only update selected fields from form
+            myform.save(update_fields=['name'])
+            messages.success(request, 'Successfully modified Collection!')
+            return redirect('my_collection')
+        else:
+            messages.error(request, 'Failed to modify Collection.')
+    else:
+        form = CollectionForm(instance=collection)
+
+    template = 'collection/add-collection.html'
+    context = {
+        'form': form,
+        'head_tag': 'Edit',
+        'submit_text': 'Save Changes',
     }
 
     return render(request, template, context)

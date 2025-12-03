@@ -5,6 +5,7 @@ from .models import Record, Artist
 @admin.register(Record)
 class RecordAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('a_side',)}
+    list_display = ('__str__', 'artist', 'large_hole', 'collection')
 
     # Override the save model to create a unique slug of a_side+id
 

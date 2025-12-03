@@ -1,24 +1,41 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Record List{% endblock %}
 
 {% block main_content %}
-    <h2>Records list{% if collection %} - from collection: {{collection}}{%endif%}</h2>
-    <table class="table">
-        <thead>
-            <tr class="title-font">
-                <th>Title</th>
-                <th>B Side</th>
-                <th>Spindle</th>
-                <th>link</th>
+<section>
+    <header class="row">
+        {% if collection %}
+            <div class="col-12 col-sm-8 mt-auto">
+                <div class="card-title fs-3">{{collection}}</div>
+                <p class="small">Owner: {{collection.username.name}}</p>
+            </div>
+        <div class="col-12 col-sm-4">
+            <img src="{% static 'images/vinyl-placeholder.png' %}" alt="placeholder image">
+        </div>
+        <hr>
+        {% endif %}
+        <h2>Records list{% if collection %} - from collection: {{collection}}{%endif%}</h2>
+    </header>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr class="title-font">
+                    <th>Title</th>
+                    <th>B Side</th>
+                    <th>Spindle</th>
+                    <th>link</th>
+                </tr>
+            </thead>
+            {% for record in object_list %}
+            <tr>
+                <td class="copy-bold text-nowrap">{{record}}</td>
+                <td>{{record.b_side}}</td>
+                <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
+                <td><a href="/record/{{record.slug}}">{{record.slug}}</a></td>
             </tr>
-        </thead>
-        {% for record in object_list %}
-        <tr>
-            <td class="copy-bold">{{record}}</td>
-            <td>{{record.b_side}}</td>
-            <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
-            <td><a href="/record/{{record.slug}}">{{record.slug}}</a></td>
-        </tr>
-        {% endfor %}
-    </table>
+            {% endfor %}
+        </table>
+    </div>
+</section>
 {% endblock %}
