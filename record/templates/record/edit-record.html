@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Edit Record{% endblock %}
+
+{% block main_content %}
+{{ block.super }}
+<!-- displays form as crispy form -->
+<div class="row">
+    <div class="col-12 col-md-6">
+        <form method="post" class="form mb-2" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <div class="text-right mt-2">
+                <a class="btn btn-dark rounded-0" href="{% url 'all_records' %}">Cancel</a>
+                <button class="btn btn-outline-info rounded-0" type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 from django.views import generic
-from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import Record
+from .forms import RecordForm
 
 
 def index(request):
@@ -38,3 +40,28 @@ def view_record(request, slug):
     return render(
         request, template, context
     )
+
+
+def edit_record(request, slug):
+    record = get_object_or_404(Record, slug=slug)
+
+    if request.method == 'POST':
+        form = RecordForm(request.POST, request.FILES, instance=record)
+        if form.is_valid():
+            myform = form.save(commit=False)
+            myform.notes = form.cleaned_data['notes']
+            myform.save()
+            messages.success(request, 'Successfully modified Record!')
+            return redirect('view_collection', id=record.collection_id)
+        else:
+            print(form)
+            messages.error(request, 'Failed to modify Record.')
+    else:
+        form = RecordForm(instance=record)
+
+    template = 'record/edit-record.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)
