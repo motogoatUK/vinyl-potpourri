@@ -1,7 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect, render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Record
 from .forms import RecordForm
 
@@ -42,26 +44,35 @@ def view_record(request, slug):
     )
 
 
+@login_required
 def edit_record(request, slug):
     record = get_object_or_404(Record, slug=slug)
 
-    if request.method == 'POST':
-        form = RecordForm(request.POST, request.FILES, instance=record)
-        if form.is_valid():
-            myform = form.save(commit=False)
-            myform.notes = form.cleaned_data['notes']
-            myform.save()
-            messages.success(request, 'Successfully modified Record!')
-            return redirect('view_collection', id=record.collection_id)
+    if request.user == record.collection.username.user:
+        if request.method == 'POST':
+            form = RecordForm(request.POST, request.FILES, instance=record)
+            if form.is_valid():
+                myform = form.save(commit=False)
+                myform.notes = form.cleaned_data['notes']
+                myform.save()
+                messages.success(request, 'Successfully modified Record!')
+                return redirect('view_collection', id=record.collection_id)
+            else:
+                print(form)
+                messages.error(request, 'Failed to modify Record.')
         else:
-            print(form)
-            messages.error(request, 'Failed to modify Record.')
+            form = RecordForm(instance=record)
+
+        template = 'record/edit-record.html'
+        context = {
+            'form': form,
+        }
+        return render(request, template, context)
+
     else:
-        form = RecordForm(instance=record)
-
-    template = 'record/edit-record.html'
-    context = {
-        'form': form,
-    }
-
-    return render(request, template, context)
+        # send user back to referring page with error
+        if (request.META.get('HTTP_REFERER')):
+            messages.error(request, 'record is not in your collection')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        # or 403 if no referrer
+    raise PermissionDenied

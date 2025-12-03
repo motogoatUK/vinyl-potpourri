@@ -1,5 +1,7 @@
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -90,24 +92,33 @@ def edit_collection(request, id):
     Use same template as add_collection by adding extra context
     """
     collection = get_object_or_404(Collection, pk=id)
-    if request.method == 'POST':
-        form = CollectionForm(request.POST, request.FILES, instance=collection)
-        if form.is_valid():
-            myform = form.save(commit=False)
-            # only update selected fields from form
-            myform.save(update_fields=['name'])
-            messages.success(request, 'Successfully modified Collection!')
-            return redirect('my_collection')
+    if request.user == collection.username.user:
+        if request.method == 'POST':
+            form = CollectionForm(request.POST,
+                                  request.FILES,
+                                  instance=collection)
+            if form.is_valid():
+                myform = form.save(commit=False)
+                # only update selected fields from form
+                myform.save(update_fields=['name'])
+                messages.success(request, 'Successfully modified Collection!')
+                return redirect('my_collection')
+            else:
+                messages.error(request, 'Failed to modify Collection.')
         else:
-            messages.error(request, 'Failed to modify Collection.')
+            form = CollectionForm(instance=collection)
+
+        template = 'collection/add-collection.html'
+        context = {
+            'form': form,
+            'head_tag': 'Edit',
+            'submit_text': 'Save Changes',
+        }
+        return render(request, template, context)
     else:
-        form = CollectionForm(instance=collection)
-
-    template = 'collection/add-collection.html'
-    context = {
-        'form': form,
-        'head_tag': 'Edit',
-        'submit_text': 'Save Changes',
-    }
-
-    return render(request, template, context)
+        if request.META.get('HTTP_REFERER'):
+            # send user back to referring page with error
+            messages.error(request, 'That collection is not yours!')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        # or 403 if no referrer
+        raise PermissionDenied
