@@ -3,8 +3,8 @@
 {% block title %}Record View{% endblock %}
 
 {% block main_content %}
+{% url 'edit_record' record.slug as edit_url %}
 {{ block.super }}
-
 <section class="row">
     <header>
         <h2>Record: Detailed View</h2>
@@ -17,10 +17,10 @@
                 B Side: {{record.b_side}}</p>
             <p>Spindle size: {% if record.large_hole %}Large{% else %}Small{% endif %}</p>
             <p>Notes:<br>{{record.notes}}</p>
-            <p>Collection: {{record.collection}}</p>
+            <p>Collection: <a href="{% url 'collections' %}{{record.collection.id}}">{{record.collection}}</a></p>
         </div>
         <div class="col-12 col-sm-4"><img src="{% static 'images/vinyl-placeholder.png' %}" alt="placeholder image">
     </div>
-    <a class="btn btn-outline-primary rounded-0" href="../edit/{{ record.slug }}">Edit Record</a>
+    <a class="btn btn-outline-primary rounded-0" href="{{edit_url}}">Edit Record</a>
 </section>
 {% endblock %}

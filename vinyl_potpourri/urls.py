@@ -11,7 +11,7 @@ from my_profile import urls as my_profile_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('record/', include(record_urls), name='record_urls'),
+    path('record/', include(record_urls)),
     path('', include(collection_urls), name='collection_urls'),
     path('profile/', include(my_profile_urls), name='profile_urls'),
     ]

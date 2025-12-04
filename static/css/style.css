@@ -40,6 +40,8 @@ body {
     font-weight: 400;
     background-color:var(--dark-shade);
     color:var(--light-accent);
+    margin:0;
+    padding:0;
 }
 
 a {
@@ -73,4 +75,29 @@ h1, h2 {font-family: var(--heading-font);
 }
 .toast-capper {
     height: 2px;
+}
+/* article styling */
+.article-box {
+    height:180px;
+    max-width: 100%;
+    margin-right:10px;
+}
+.article-box img {
+    max-height: 144px;
+}
+.bg-custom {
+    background-color: rgba(25, 25, 255, 0.1);
+}
+
+/* Media Queries */
+/* md breakpoint */
+@media (min-width:576px){
+    .article-box {
+        max-width:48%;
+    }
+}
+@media (min-width:768px){
+    .article-box {
+        max-width:24%;
+    }
 }

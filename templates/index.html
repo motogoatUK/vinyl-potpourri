@@ -4,17 +4,27 @@
 
 <!-- don't overwrite existing header from base.html -->
 {% block header-image %}
- <img class="col-12" src="{% static 'images/vinyl-potpourri-gemini_image_land.png' %}">
+<img class="col-12" src="{% static 'images/vinyl-potpourri-gemini_image_land.png' %}">
 {% endblock header-image %}
-    {% block content %}
+{% block content %}
 <h2>Collections</h2>
 <div class="row">
     {% for collection in collection_list %}
 
-    <article class="col-12 col-sm-6 col-md-3">
-        <p class="card">{{collection.username.name}}'s <strong>{{collection}}</strong> collection:
-            <a href="/collection/{{collection.id}}/">{{collection}}</a>
-        </p>
+    <article class="container article-box bg-custom p-0 mb-2 col-12 col-sm-6 col-md-3">
+
+        <div class="p-1 bg-dark border-bottom">{{collection.username.name}}'s <strong>{{collection}}</strong>
+        </div>
+        <div class="row">
+            <div class="col-7 align-self-end">
+                <p class="ps-1">collection:<br>
+                    <a href="/collection/{{collection.id}}/">{{collection}}</a>
+                </p>
+            </div>
+            <div class="col-5">
+                <img class="img-fluid" src="{% static 'images/vinyl-placeholder.png' %}" alt="placeholder image">
+            </div>
+        </div>
     </article>
     {% endfor %}
 </div>
