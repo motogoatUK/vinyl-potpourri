@@ -89,6 +89,44 @@ h1, h2 {font-family: var(--heading-font);
     background-color: rgba(25, 25, 255, 0.1);
 }
 
+/* style autocomplete fields */
+/* Autocomplete dropdown container */
+.autocomplete-box {
+    position: absolute;
+    background: white;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    margin-top: 2px;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    z-index: 1000;
+    font-size: 14px;
+}
+
+/* Individual suggestion item */
+.autocomplete-box div {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+/* Highlight on hover */
+.autocomplete-box div:hover {
+    background: #f2f2f2;
+}
+.autocomplete-box .active {
+    background: #e8e8e8;
+}
+
+/* Style for the input field when suggestions open */
+.autocomplete-open {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
 /* Media Queries */
 /* md breakpoint */
 @media (min-width:576px){

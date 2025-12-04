@@ -1,10 +1,11 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views import generic
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Record
+
+from .models import Artist, Record
 from .forms import RecordForm
 
 
@@ -30,6 +31,17 @@ class RecordList(generic.ListView):
                     return ordering
             except ValueError:
                 pass  # Ignore invalid ordering fields
+
+
+def artist_autocomplete(request):
+    q = request.GET.get("q", "")
+    results = []
+
+    if q:
+        artists = Artist.objects.filter(name__icontains=q)[:10]
+        results = [{"id": a.id, "name": a.name} for a in artists]
+
+    return JsonResponse(results, safe=False)
 
 
 def view_record(request, slug):
@@ -61,6 +73,7 @@ def edit_record(request, slug):
                 instance=record, user=request.user)
             if form.is_valid():
                 myform = form.save(commit=False)
+                myform.artist = form.cleaned_data['artist']
                 myform.notes = form.cleaned_data['notes']
                 myform.save()
                 messages.success(request, 'Successfully modified Record!')
