@@ -46,11 +46,19 @@ def view_record(request, slug):
 
 @login_required
 def edit_record(request, slug):
+    """
+    edit_record
+    provides pre-filled record form after checking
+    the record instance belongs to the user (via collection)
+    """
     record = get_object_or_404(Record, slug=slug)
 
     if request.user == record.collection.username.user:
         if request.method == 'POST':
-            form = RecordForm(request.POST, request.FILES, instance=record)
+            form = RecordForm(
+                request.POST,
+                request.FILES,
+                instance=record, user=request.user)
             if form.is_valid():
                 myform = form.save(commit=False)
                 myform.notes = form.cleaned_data['notes']
