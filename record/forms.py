@@ -1,22 +1,40 @@
 from django import forms
-from collection.models import Collection
+from collection.models import Collection, Location
 from .models import Artist, Record
 
 
 class RecordForm(forms.ModelForm):
     """ form: RecordForm
-    convert location and artist to input fields
-    with autocomplete using django-autocomplete-light
-    then use create_or_save in view.
-    Don't include the slug field
+    convert location and artist to input fields with autocomplete
+    using the following attributes to stop the browser
+    showing its own autocomplete field over the top.
+    `'autocomplete': 'off'` and `'inputmode': 'search'`.
+    then use the `clean(self)` function to create a new Artist if required.
+    Don't include the slug field in the form as it is auto created on save
     """
+    # Setup form fields that need to be in a different format
     artist_name = forms.CharField(
         label="Artist",
         widget=forms.TextInput(attrs={
-            "autocomplete": "off",
-            "inputmode": "search",
+            'class': 'autocomplete',  # required for JS to pick up input field
+            'data-url': '/record/artist-autocomplete',  # API endpoint
+            'data-target': '#id_artist_id',
+            'autocomplete': 'off',
+            'inputmode': 'search',
         }))
     artist_id = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+    location_name = forms.CharField(
+        label="Location",
+        widget=forms.TextInput(attrs={
+            'class': 'autocomplete',
+            'data-url': '/collection/location-autocomplete',  # API endpoint
+            'data-target': '#id_location_id',
+            'autocomplete': 'off',
+            'inputmode': 'search',
+        }), required=False)
+    location_id = forms.IntegerField(
+        widget=forms.HiddenInput(),
+        required=False)
 
     collection = forms.ModelChoiceField(queryset=Collection.objects.none())
 
@@ -31,14 +49,15 @@ class RecordForm(forms.ModelForm):
         # get the current collection from kwargs
         this_collection = kwargs['instance'].collection
         self.fields['collection'].initial = this_collection
-        # get the current artist using a different way than kwargs
+        # get the current artist and location using a different way than kwargs
         self.fields['artist_name'].initial = self.instance.artist
+        self.fields['location_name'].initial = self.instance.location
 
     class Meta:
         model = Record
         # don't include 'slug'
         fields = ['artist_name', 'artist_id', 'a_side', 'b_side',
-                  'large_hole', 'notes', 'location',
+                  'large_hole', 'notes', 'location_name', 'location_id',
                   'collection'
                   ]
         # include the slug but make it hidden
@@ -50,16 +69,40 @@ class RecordForm(forms.ModelForm):
         """
         Returns a valid artist.
         Creates a new artist if one doesn't exist
+        modified 12/12/25 SDThornes
+        Also returns location.
+        Error if ID not found
         """
         cleaned = super().clean()
         artist_id = cleaned.get("artist_id")
-        name = cleaned.get("artist_name")
+        artist_name = cleaned.get("artist_name")
+        location_id = cleaned.get("location_id")
+        location_name = cleaned.get("location_name")
 
         if artist_id:
-            cleaned["artist"] = Artist.objects.get(id=artist_id)
+            # If choice from autocomplete
+            try:
+                cleaned["artist"] = Artist.objects.get(id=artist_id)
+            except Artist.DoesNotExist:
+                self.add_error("artist_name", "Artist ID not found.")
         else:
-            # create new artist
-            artist, _ = Artist.objects.get_or_create(name=name)
-            cleaned["artist"] = artist
+            # If user typed a new name
+            if artist_name:
+                artist, created = Artist.objects.get_or_create(
+                    name=artist_name)
+                cleaned["artist"] = artist
+
+        if location_id:
+            # If chosen from autocomplete
+            try:
+                cleaned["location"] = Location.objects.get(id=location_id)
+            except Location.DoesNotExist:
+                self.add_error("location_name", "Location ID not found.")
+        else:
+            # If user typed a new location
+            if location_name:
+                location, created = Location.objects.get_or_create(
+                    name=location_name)
+                cleaned["location"] = location
 
         return cleaned

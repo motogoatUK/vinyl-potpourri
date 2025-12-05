@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.views import generic
 from django.core.exceptions import PermissionDenied
@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from my_profile.models import My_Profile
 
 from .forms import CollectionForm
-from .models import Collection
+from .models import Collection, Location
 from record.models import Record
 
 
@@ -44,6 +44,17 @@ def view_collection(request, id):
     return render(
         request, template, context
     )
+
+
+def location_autocomplete(request):
+    q = request.GET.get("q", "")
+    results = []
+
+    if q:
+        location = Location.objects.filter(name__icontains=q)[:10]
+        results = [{"id": a.id, "name": a.name} for a in location]
+
+    return JsonResponse(results, safe=False)
 
 
 @login_required

@@ -73,8 +73,8 @@ def edit_record(request, slug):
                 instance=record, user=request.user)
             if form.is_valid():
                 myform = form.save(commit=False)
-                myform.artist = form.cleaned_data['artist']
-                myform.notes = form.cleaned_data['notes']
+                myform.artist = form.cleaned_data.get('artist')
+                myform.location = form.cleaned_data.get('location')
                 myform.save()
                 messages.success(request, 'Successfully modified Record!')
                 return redirect('view_collection', id=record.collection_id)
