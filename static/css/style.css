@@ -80,7 +80,6 @@ h1, h2 {font-family: var(--heading-font);
 .article-box {
     height:180px;
     max-width: 100%;
-    margin-right:10px;
 }
 .article-box img {
     max-height: 144px;
@@ -138,6 +137,11 @@ h1, h2 {font-family: var(--heading-font);
 }
 @media (min-width:768px){
     .article-box {
-        max-width:24%;
+        max-width:30%;
+    }
+}
+@media (min-width:1024px){
+    .article-box {
+        max-width:23%;
     }
 }

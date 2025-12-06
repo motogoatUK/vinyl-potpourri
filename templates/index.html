@@ -8,10 +8,10 @@
 {% endblock header-image %}
 {% block content %}
 <h2>Collections</h2>
-<div class="row container">
+<div class="row container-fluid gap-3 justify-content-center">
     {% for collection in collection_list %}
 
-    <article class="article-box bg-custom p-0 mb-2 col-12 col-sm-6 col-md-3">
+    <article class="article-box bg-custom p-0 mb-2 col-12 col-sm-6 col-xl-4 col-xxl-3">
 
         <div class="p-1 bg-dark border-bottom">{{collection.username.name}}'s <strong>{{collection}}</strong>
         </div>
