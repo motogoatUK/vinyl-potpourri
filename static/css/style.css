@@ -93,7 +93,7 @@ h1, h2 {font-family: var(--heading-font);
 /* Autocomplete dropdown container */
 .autocomplete-box {
     position: absolute;
-    background: white;
+    background-color:#07113b;
     border: 1px solid #d0d0d0;
     border-radius: 6px;
     margin-top: 2px;
@@ -115,10 +115,12 @@ h1, h2 {font-family: var(--heading-font);
 
 /* Highlight on hover */
 .autocomplete-box div:hover {
-    background: #f2f2f2;
+    background-color: #000;
+    color:var(--light-shade)
 }
 .autocomplete-box .active {
-    background: #e8e8e8;
+    background-color: var(--dark-shade);
+    color:var(--light-shade)
 }
 
 /* Style for the input field when suggestions open */

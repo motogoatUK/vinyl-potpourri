@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block main_content %}
+{% load static %}
+{{ block.super }}
+<div class="container">
+    <div class="row">
+        <div class="col-4 text-center">
+            <img src="{% static 'images\vinyl-placeholder.png' %}">
+        </div>
+        <div class="col-8">
+            <!-- title -->
+            <h2>{{ about.title }}</h2>
+            {{ about.content }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <!-- updated_on -->
+            <p class="text-end">Last Updated: {{ about.updated_on }}
+            </p>
+        </div>
+      </div>
+</div>
+{% endblock %}
