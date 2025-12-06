@@ -3,6 +3,7 @@
 {% block title %}Record List{% endblock %}
 
 {% block main_content %}
+{% url 'add_record' as add_record_url %}
 <section>
     <header class="row">
         {% if collection %}
@@ -20,6 +21,8 @@
         {% endif %}
         <h2>Records list{% if collection %} - from collection: {{collection}}{%endif%}</h2>
     </header>
+    <a class="col-12 btn btn-outline-primary btn-custom rounded-0" href="{{add_record_url}}">Add a Record</a>
+    <!-- table to show list of records -->
     <div class="table-responsive">
         <table class="table table-dark table-striped">
             <thead>

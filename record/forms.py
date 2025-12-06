@@ -46,12 +46,13 @@ class RecordForm(forms.ModelForm):
         self.fields['collection'].queryset = Collection.objects.filter(
             username__user=user)
         # If this form is pre-filled, get current values
-        # get the current collection from kwargs
-        this_collection = kwargs['instance'].collection
-        self.fields['collection'].initial = this_collection
-        # get the current artist and location using a different way than kwargs
-        self.fields['artist_name'].initial = self.instance.artist
-        self.fields['location_name'].initial = self.instance.location
+        if kwargs.get('instance'):
+            # get the current collection from kwargs
+            this_collection = kwargs.get('instance').collection
+            self.fields['collection'].initial = this_collection
+            # get the current artist/location using a different way than kwargs
+            self.fields['artist_name'].initial = self.instance.artist
+            self.fields['location_name'].initial = self.instance.location
 
     class Meta:
         model = Record

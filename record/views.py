@@ -86,6 +86,8 @@ def edit_record(request, slug):
         template = 'record/edit-record.html'
         context = {
             'form': form,
+            'head_tag': 'Edit',
+            'submit_text': 'Save Changes',
         }
         return render(request, template, context)
 
@@ -96,3 +98,45 @@ def edit_record(request, slug):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         # or 403 if no referrer
     raise PermissionDenied
+
+
+@login_required
+def add_record(request):
+    """
+    Add a record to the database. If NOT premium then limit to 10 records
+    Template: edit-record
+    Add vars to context
+    """
+    # if request.user__profile.premium:
+    if request.method == 'POST':
+        form = RecordForm(
+            request.POST,
+            request.FILES,
+            user=request.user)
+        if form.is_valid():
+            myform = form.save(commit=False)
+            myform.artist = form.cleaned_data.get('artist')
+            myform.location = form.cleaned_data.get('location')
+            record = myform.save()
+            messages.success(request, 'Successfully added Record!')
+            return redirect('view_collection', id=record.collection_id)
+        else:
+            messages.error(request, 'Failed to add Record.')
+    else:
+        form = RecordForm(user=request.user)
+
+    template = 'record/edit-record.html'
+    context = {
+        'form': form,
+        'head_tag': 'Add',
+        'submit_text': 'Add Record',
+    }
+    return render(request, template, context)
+
+    # else:
+    #     # send user back to referring page with error
+    #     if (request.META.get('HTTP_REFERER')):
+    #         messages.error(request, 'record is not in your collection')
+    #         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    #     # or 403 if no referrer
+    # raise PermissionDenied

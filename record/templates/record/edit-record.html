@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Edit Record{% endblock %}
+{% block title %}{{ head_tag }} a Record{% endblock %}
 
 {% block main_content %}
 {{ block.super }}
@@ -12,7 +12,7 @@
             {{ form | crispy }}
             <div class="text-right mt-2">
                 <a class="btn btn-dark rounded-0" href="{% url 'all_records' %}">Cancel</a>
-                <button class="btn btn-outline-info rounded-0" type="submit">Save Changes</button>
+                <button class="btn btn-outline-info rounded-0" type="submit">{{ submit_text }}</button>
             </div>
         </form>
     </div>
