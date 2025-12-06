@@ -8,21 +8,32 @@
 // refactored to use any fk (e.g artist and location)
 // */
 document.addEventListener("DOMContentLoaded", () => {
+    // Auto-wrap every autocomplete input in a .autocomplete-wrapper
     document.querySelectorAll("input.autocomplete").forEach((input) => {
         // changed consts to use data-urls for universal use
         const url = input.dataset.url;
         const hidden = document.querySelector(input.dataset.target);
 
-        let box = null;
+        let box = document.createElement("div");
+        box.classList.add("autocomplete-box");
+        box.style.display = "none"; // hide initially
+        input.parentElement.appendChild(box);
+
         let activeIndex = -1;
         let items = [];
 
         function closeBox() {
-            if (box) box.remove();
-            box = null;
+            // Hide the box instead of removing it completely
+            box.style.display = "none";
+            box.innerHTML = ""; 
             items = [];
             activeIndex = -1;
             input.classList.remove("autocomplete-open");
+        }
+
+        function showBox() {
+            box.style.display = "block";
+            input.classList.add("autocomplete-open");
         }
 
         function highlightItem(index) {
@@ -43,13 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
             const resp = await fetch(url + "?q=" + encodeURIComponent(q));
             const results = await resp.json();
 
-            closeBox();
-            box = document.createElement("div");
-            box.classList.add("autocomplete-box");
-            input.after(box);
-            input.classList.add("autocomplete-open");
+            // Refresh the box without recreating it
+            box.innerHTML = "";
+            items = [];
 
-            items = results.map((item, index) => {
+            if (!results.length) {
+                closeBox();
+                return;
+            }
+
+            showBox();
+
+            items = results.map((item) => {
                 const option = document.createElement("div");
                 option.textContent = item.name;
 
@@ -63,9 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 return option;
             });
         });
-// Add code for keyboard use
+
+        // Keyboard navigation
         input.addEventListener("keydown", (event) => {
-            if (!box) return;
+            if (box.style.display === "none") return;
 
             switch (event.key) {
                 case "ArrowDown":
@@ -94,9 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
   // chatGPT helped here
         document.addEventListener("click", (e) => {
-            if (box && !box.contains(e.target) && e.target !== input) {
+            if (box.style.display !== "none" &&
+                !box.contains(e.target) &&
+                e.target !== input) {
                 closeBox();
             }
         });
     });
 });
+

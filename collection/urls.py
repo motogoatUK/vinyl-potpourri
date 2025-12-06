@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('collection/add/', views.add_collection, name='add_collection'),
     path('collection/edit/<int:id>/', views.edit_collection),
-    path('collection/location-autocomplete/',
+    path('collection/location-autocomplete',
          views.location_autocomplete,
          name="location-autocomplete"),
     path('collection/<int:id>/',
