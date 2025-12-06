@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify
 
 from .models import Artist, Record
 from .forms import RecordForm
@@ -114,10 +115,14 @@ def add_record(request):
             request.FILES,
             user=request.user)
         if form.is_valid():
-            myform = form.save(commit=False)
-            myform.artist = form.cleaned_data.get('artist')
-            myform.location = form.cleaned_data.get('location')
-            record = myform.save()
+            record = form.save(commit=False)
+            # pre-add a slug
+            record.slug = slugify(record.a_side)
+            record.artist = form.cleaned_data.get('artist')
+            record.location = form.cleaned_data.get('location')
+            record.save()
+            record.slug = f"{record.slug}-{record.id}"
+            record.save(update_fields=['slug'])
             messages.success(request, 'Successfully added Record!')
             return redirect('view_collection', id=record.collection_id)
         else:
