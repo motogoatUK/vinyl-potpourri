@@ -13,16 +13,22 @@
 
     <article class="article-box bg-custom p-0 mb-2 col-12 col-sm-6 col-xl-4 col-xxl-3">
 
-        <div class="p-1 bg-dark border-bottom">{{collection.username.name}}'s <strong>{{collection}}</strong>
+        <div class="p-1 bg-dark card-heading border-bottom">{{collection.username.name}}'s
+            <strong>{{collection}}</strong>
         </div>
-        <div class="row">
-            <div class="col-7 align-self-end">
-                <p class="ps-1">collection:<br>
-                    <a href="/collection/{{collection.id}}/">{{collection}}</a>
+        <div class="p-2 card-inner">
+            <!-- floating img right in css so text will wrap around it -->
+            <img src="{% static 'images/vinyl-placeholder.png' %}" alt="placeholder image" class="img-fluid">
+
+            <div class="mb-3 inner-text">
+                <p class="mb-0">
+                    <strong>Collection:</strong><br>
+                    <a href="/collection/{{ collection.id }}/">{{ collection }}</a>
                 </p>
-            </div>
-            <div class="col-5">
-                <img class="img-fluid" src="{% static 'images/vinyl-placeholder.png' %}" alt="placeholder image">
+                <!-- align text to bottom -->
+                <p class="text-muted small overtype">
+                    {{ collection.description|default:"No description available." }}
+                </p>
             </div>
         </div>
     </article>

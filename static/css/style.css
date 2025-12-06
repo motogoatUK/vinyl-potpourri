@@ -78,14 +78,50 @@ h1, h2 {font-family: var(--heading-font);
 }
 /* article styling */
 .article-box {
-    height:180px;
+    height:190px;
     max-width: 100%;
+    position: relative;
+}
+/* stop the title text overflowing and making headings different sizes */
+.article-box .card-heading {
+    white-space: nowrap;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.article-box .card-heading:hover {
+    white-space: normal;
+    overflow: visible;
+    background: #0a0a0a;
+    padding: .3rem;
+    z-index: 5;
+    position: relative;
 }
 .article-box img {
-    max-height: 144px;
+    float: right;
+    max-height: 80%;
+    max-width: 35%;
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.article-box .card-inner {   
+    position: relative;
+    height: 100%;
+}
+/* bottom align text in card */
+.card-inner .inner-text {
+    position: absolute;
+    bottom: .5rem;
+    left: .5rem;
+    right: .5rem;
+    overflow-wrap: anywhere;
 }
 .bg-custom {
     background-color: rgba(25, 25, 255, 0.1);
+}
+/* give text an outline for overlaying */
+.overtype {
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 black;
 }
 
 /* style autocomplete fields */

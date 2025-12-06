@@ -111,7 +111,7 @@ def edit_collection(request, id):
             if form.is_valid():
                 myform = form.save(commit=False)
                 # only update selected fields from form
-                myform.save(update_fields=['name'])
+                myform.save(update_fields=['name', 'description'])
                 messages.success(request, 'Successfully modified Collection!')
                 return redirect('my_collection')
             else:
