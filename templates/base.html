@@ -3,6 +3,7 @@
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as register_url %}
 {% url 'account_logout' as logout_url %}
+{% url 'collections' as collections_url %}
 {% url 'my_profile' as profile_url %}
 {% load static %}
 
@@ -52,6 +53,10 @@
                         <li class="nav-item">
                             <a class="nav-link{% if request.path == record_url %} active" aria-current="page{% endif %}"
                                 href="{{ record_url }}">All Records</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link{% if request.path == collections_url %} active" aria-current="page{% endif %}"
+                                href="{{ collections_url }}">All Collections</a>
                         </li>
                         <!-- ms-auto moves these items to the right side of the navbar -->
                         <li class="nav-item ms-auto">

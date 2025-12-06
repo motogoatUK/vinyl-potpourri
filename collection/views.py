@@ -14,6 +14,7 @@ from record.models import Record
 
 class CollectionList(generic.ListView):
     model = Collection
+    ordering = ['id']
 
 
 class MyCollection(generic.ListView):
@@ -23,8 +24,8 @@ class MyCollection(generic.ListView):
 
 
 def index(request):
-    """ returns all collections to show on the homepage """
-    collection_list = Collection.objects.all()
+    """ returns the 8 newest collections to show on the homepage """
+    collection_list = Collection.objects.order_by('-id')[:8]
     context = {"collection_list": collection_list}
     return render(request, 'index.html', context)
 
@@ -34,7 +35,7 @@ def view_collection(request, id):
     Gets a list of records from collection
     and sends them to the template
     """
-    record_list = Record.objects.filter(collection=id)
+    record_list = Record.objects.filter(collection=id).order_by('id')
     collection = get_object_or_404(Collection, pk=id)
     template = 'record/record_list.html'
     context = {
