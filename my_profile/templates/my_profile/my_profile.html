@@ -3,13 +3,27 @@
 {% block content %}
 <section id="profile">
     <h2>{{ profile }}</h2>
+    {% if form.fields %}
+    <form method="post" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div class="mb-2">
+            <a class="btn btn-dark rounded-0" href="{% url 'my_profile' %}">Cancel</a>
+            <button class="btn btn-outline-primary btn-custom rounded-0" type="submit">Save Name</button>
+        </div>
+    </form>
+    {% else %}
     <p>
-        Name: {{ profile.name }}<br>
+        Name: {{ profile.name }}
+        <a class="small" href="{%url 'edit_profile'%}">[Change display name]</a>
+        <br>
+        {% endif %}
         Status: {% if profile.premium %}Premium<br>
         Sub Date: {{ profile.sub_date }} (expires {{ profile.exp_date }})
-        {% else %}Standard User</p>
-        <p><a class="btn btn-outline-warning rounded-0" href="#">Upgrade to Premium</a>
-{% endif %}
+        {% else %}Standard User
+    </p>
+    <p><a class="btn btn-outline-warning rounded-0" href="#">Upgrade to Premium</a>
+        {% endif %}
     </p>
     <a class="btn btn-outline-primary rounded-0" href="{%url 'my_collection'%}">My Collection(s)</a>
     <a class="btn btn-outline-primary rounded-0" href="{%url 'add_collection'%}">Add Collection</a>

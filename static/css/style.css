@@ -47,8 +47,10 @@ body {
 a {
     font-family: var(--title-font);
     color: var(--light-shade);
+    text-decoration: none;
 }
-
+a:hover { text-decoration: underline;
+}
 .nav-item {
     background-color:#040b26;
     border: #040b26 solid 1px;
@@ -88,7 +90,7 @@ h1, h2 {font-family: var(--heading-font);
     position: relative;
 }
 /* stop the title text overflowing and making headings different sizes */
-.article-box .card-heading {
+.article-box .card-heading {    
     white-space: nowrap;
     min-width: 0;
     overflow: hidden;
@@ -97,7 +99,7 @@ h1, h2 {font-family: var(--heading-font);
 .article-box .card-heading:hover {
     white-space: normal;
     overflow: visible;
-    background: #0a0a0a;
+    background-color: #0a0a0a;
     padding: .3rem;
     z-index: 5;
     position: relative;
@@ -135,10 +137,8 @@ h1, h2 {font-family: var(--heading-font);
     position: relative;
 }
 .autocomplete-box {
-    position: absolute;
-    left: 5px;
-    right: -5px;
-    top: 98%; 
+    position: relative;
+    margin-left: 5px;
     background-color:#07113b;
     border: 1px solid #d0d0d0;
     border-radius: 6px;

@@ -14,7 +14,7 @@
     {% for collection in object_list %}
     <tr>
         <td><strong>{{collection}}</strong></td>
-        <td>{{collection.username}}</td>
+        <td>{{collection.username.name}}</td>
         <td>
             <a href="/collection/{{collection.id}}/">view</a> | <a
                 href="/collection/edit/{{collection.id}}/">edit</a>
