@@ -7,4 +7,12 @@ class CollectionForm(forms.ModelForm):
     class Meta:
         fields = ['name', 'description']
         model = Collection
-        labels = {'description': 'Description (max 120 characters):'}
+        labels = {
+            'name': 'Collection Name:',
+            'description': 'Description (max 120 characters):'
+            }
+        widgets = {
+            'description': forms.TextInput(
+                attrs={'placeholder': '[OPTIONAL]'}
+                ),
+        }

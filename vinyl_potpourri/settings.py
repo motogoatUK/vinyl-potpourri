@@ -56,7 +56,7 @@ ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*',
                          'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_MIN_LENGTH = 4
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/profile/"
 LOGOUT_REDIRECT_URL = "/"
 
 MIDDLEWARE = [
