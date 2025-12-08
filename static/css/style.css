@@ -51,6 +51,11 @@ a {
 }
 a:hover { text-decoration: underline;
 }
+/* no underline on nav elements */
+.nav a:hover {
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
 .nav-item {
     background-color:#040b26;
     border: #040b26 solid 1px;
@@ -76,6 +81,8 @@ h1, h2 {font-family: var(--heading-font);
     background-color:var(--light-accent);
     color:var(--dark-accent);
     border-color: var(--light-accent);
+    transition: all 0.4s ease;
+    text-decoration: none;
 }
 .custom-toast {
     overflow: visible;
@@ -85,24 +92,32 @@ h1, h2 {font-family: var(--heading-font);
 }
 /* article styling */
 .article-box {
-    height:190px;
+    height:200px;
     max-width: 100%;
     position: relative;
 }
 /* stop the title text overflowing and making headings different sizes */
-.article-box .card-heading {    
+.article-box #coll-head {    
     white-space: nowrap;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.article-box .card-heading:hover {
+.article-box #coll-head:hover {
     white-space: normal;
     overflow: visible;
-    background-color: #0a0a0a;
-    padding: .3rem;
+    background-color: rgb(25, 29, 32);
     z-index: 5;
-    position: relative;
+    position: absolute;
+    left:0;
+    top:0;
+    padding: 4px;
+    /* ease-in hover transition */    
+    transition: background-color 1s ease;
+}
+/* set min-height to stop collapse when heading text is floated on hover */
+.article-box .card-heading {
+    min-height:2.1em;
 }
 .article-box img {
     float: right;
@@ -126,9 +141,9 @@ h1, h2 {font-family: var(--heading-font);
 .bg-custom {
     background-color:rgba(29, 58, 86, 0.75);
 }
-/* give text an outline for overlaying */
+/* give text an outline for overlaying using 4 text-shadows */
 .overtype {
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 black;
+text-shadow: -1px -1px 2px black, 1px 1px 2px black, 1px -1px 2px black, -1px 1px 2px  black;
 }
 
 /* style autocomplete fields */

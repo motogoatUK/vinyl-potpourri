@@ -7,7 +7,7 @@ class Collection(models.Model):
     A single instance of Collection relating to username and location
 
     """
-    name = models.CharField(max_length=80, blank=False, null=True, unique=True)
+    name = models.CharField(max_length=60, blank=False, null=True, unique=True)
     username = models.ForeignKey(
         My_Profile,
         on_delete=models.CASCADE

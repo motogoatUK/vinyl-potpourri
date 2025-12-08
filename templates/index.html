@@ -13,8 +13,10 @@
 
     <article class="article-box bg-custom p-0 mb-2 col-12 col-sm-6 col-xl-4 col-xxl-3">
 
-        <div class="p-1 bg-dark card-heading border-bottom">{{collection.username.name}}'s
-            <strong>{{collection}}</strong>
+        <div class="p-1 bg-dark card-heading border-bottom">
+            <div id="coll-head">
+                {{collection.username.name}}'s <strong>{{collection}}</strong>
+            </div>
         </div>
         <div class="p-2 card-inner">
             <!-- floating img right in css so text will wrap around it -->
@@ -23,7 +25,7 @@
             <div class="mb-3 inner-text">
                 <p class="mb-0">
                     <strong>Collection:</strong><br>
-                    <a href="/collection/{{ collection.id }}/">{{ collection }}</a>
+                    <a class="overtype" href="/collection/{{ collection.id }}/">{{ collection }}</a>
                 </p>
                 <!-- align text to bottom -->
                 <p class="text-muted small overtype">
