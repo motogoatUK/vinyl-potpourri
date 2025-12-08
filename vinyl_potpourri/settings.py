@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'about',
     'collection',
+    'checkout',
     'my_profile.apps.MyProfileConfig',
     'record',
     'allauth',
