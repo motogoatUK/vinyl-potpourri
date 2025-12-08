@@ -138,10 +138,24 @@ def add_record(request):
     }
     return render(request, template, context)
 
-    # else:
-    #     # send user back to referring page with error
-    #     if (request.META.get('HTTP_REFERER')):
-    #         messages.error(request, 'record is not in your collection')
-    #         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    #     # or 403 if no referrer
-    # raise PermissionDenied
+
+@login_required
+def delete_record(request, slug):
+    """
+    function to delete a record
+    """
+    queryset = Record.objects.all()
+    doomed_record = get_object_or_404(queryset, slug=slug)
+    # Check the record is the users collection
+    if doomed_record.collection.username.user == request.user:
+        doomed_record.delete()
+        messages.add_message(request, messages.SUCCESS, "Record deleted!")
+        # Send user back to collection list as record will no longer exist
+        return redirect('view_collection', id=doomed_record.collection_id)
+    else:
+        # send user back to referring page with error
+        if (request.META.get('HTTP_REFERER')):
+            messages.error(request, 'That record is not in your collection')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        # or 403 if no referrer
+        raise PermissionDenied

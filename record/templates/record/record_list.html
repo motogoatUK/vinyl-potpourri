@@ -21,6 +21,8 @@
         {% endif %}
         <h2>Records list{% if collection %} - from collection: {{collection}}{%endif%}</h2>
     </header>
+    {% if collection %}<a class="mb-2 col-12 m-2 btn btn-outline-primary btn-delete rounded-0" href="{% url 'delete_collection' collection.id %}">Delete this collection</a>
+    <br>{% endif %}
     <a class="col-12 m-2 btn btn-outline-primary btn-custom rounded-0" href="{{add_record_url}}">Add a Record</a>
     <!-- table to show list of records -->
     <div class="table-responsive">
@@ -44,4 +46,26 @@
         </table>
     </div>
 </section>
+{% endblock %}
+{% block js_scripts %}
+<!-- Bootstrap modal -->
+        <div class="modal fade" id="modalWindow" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-custom">
+                    <div class="modal-header bg-danger">
+                        <h5 class="modal-title">Confirm Deletion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modal-content">{{collection}}</div>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="modalConfirm" href="#" class="btn btn-danger">Save changes</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- Modal end -->
+<script src="{% static 'js/delete-collection.js'%}"></script>
 {% endblock %}

@@ -134,3 +134,25 @@ def edit_collection(request, id):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         # or 403 if no referrer
         raise PermissionDenied
+
+
+@login_required
+def delete_collection(request, id):
+    """
+    function to delete a record
+    """
+    queryset = Collection.objects.all()
+    doomed = get_object_or_404(queryset, id=id)
+    # Check the collection belongs to the user
+    if doomed.username.user == request.user:
+        doomed.delete()
+        messages.add_message(request, messages.SUCCESS, f'"{doomed}" deleted!')
+        # Send user back to collection list as collection will no longer exist
+        return redirect('collections')
+    else:
+        # send user back to referring page with error
+        if (request.META.get('HTTP_REFERER')):
+            messages.error(request, f'"{doomed}" is not your collection')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        # or 403 if no referrer
+        raise PermissionDenied

@@ -16,8 +16,10 @@
         <td><strong>{{collection}}</strong></td>
         <td>{{collection.username.name}}</td>
         <td>
-            <a href="/collection/{{collection.id}}/">view</a> | <a
-                href="/collection/edit/{{collection.id}}/">edit</a>
+            <a href="{% url 'view_collection' collection.id %}">view</a>
+            {% if request.user == collection.username.user %} | <a
+                href="{% url 'edit_collection' collection.id %}">edit</a>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}

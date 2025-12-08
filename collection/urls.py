@@ -5,7 +5,10 @@ from . import views
 urlpatterns = [
     path('', views.index, name='home'),
     path('collection/add/', views.add_collection, name='add_collection'),
-    path('collection/edit/<int:id>/', views.edit_collection),
+    path('collection/edit/<int:id>/', views.edit_collection,
+         name="edit_collection"),
+    path('collection/delete/<int:id>/', views.delete_collection,
+         name="delete_collection"),
     path('collection/location-autocomplete',
          views.location_autocomplete,
          name="location-autocomplete"),
