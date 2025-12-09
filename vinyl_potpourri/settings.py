@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_summernote',
 ]
 
 SITE_ID = 1
@@ -59,6 +60,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_REDIRECT_URL = "/profile/"
 LOGOUT_REDIRECT_URL = "/"
+SUMMERNOTE_THEME = 'bs5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
