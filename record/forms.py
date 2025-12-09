@@ -40,17 +40,19 @@ class RecordForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
+        collection_id = kwargs.pop('collection_id', None)
         super().__init__(*args, **kwargs)
         # limit choices to users own collections
-        self.fields['collection'].empty_label = None
+        self.fields['collection'].empty_label = "Please select..."
         self.fields['collection'].queryset = Collection.objects.filter(
             username__user=user)
+        # get current selected collection, if it exists
+        if collection_id:
+            # get the current collection from kwargs
+            self.fields['collection'].initial = collection_id
         # If this form is pre-filled, get current values
         if kwargs.get('instance'):
-            # get the current collection from kwargs
-            this_collection = kwargs.get('instance').collection
-            self.fields['collection'].initial = this_collection
-            # get the current artist/location using a different way than kwargs
+            # get the current artist/location
             self.fields['artist_name'].initial = self.instance.artist
             self.fields['location_name'].initial = self.instance.location
 

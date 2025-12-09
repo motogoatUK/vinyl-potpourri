@@ -77,6 +77,10 @@ h1, h2 {font-family: var(--heading-font);
     right: 15px;
     z-index: 9999;
 }
+/* override bootstrap style */
+.form-control, .form-select, .form-check-input[type="checkbox"] {
+    border-radius: 0;
+}
 .btn-custom:hover, .btn-delete:hover {
     background-color:var(--light-accent);
     color:var(--dark-shade);
@@ -87,6 +91,7 @@ h1, h2 {font-family: var(--heading-font);
 .btn-delete:hover {
     color: var(--danger);
 }
+/* message toast */
 .custom-toast {
     overflow: visible;
 }

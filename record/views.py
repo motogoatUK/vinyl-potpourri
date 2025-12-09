@@ -128,7 +128,14 @@ def add_record(request):
         else:
             messages.error(request, 'Failed to add Record.')
     else:
-        form = RecordForm(user=request.user)
+        # get collection from URL
+        collection = request.GET.get("collection")
+        if collection:
+            # Convert to int
+            collection_id = int(collection)
+            form = RecordForm(user=request.user, collection_id=collection_id)
+        else:
+            form = RecordForm(user=request.user)
 
     template = 'record/edit-record.html'
     context = {

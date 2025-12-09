@@ -33,10 +33,16 @@
             <a class="w-100 m-2 btn btn-outline-primary btn-delete rounded-0"
                 href="{% url 'delete_collection' collection.id %}">Delete this collection</a>
         </div>
-        {% endif %}
         <div class="col-12">
-            <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0" href="{{add_record_url}}">Add a Record</a>
+            <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0"
+                href="{{add_record_url}}?collection={{collection.id}}">Add a Record</a>
         </div>
+        {% else %}
+        <div class="col-12">
+            <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0"
+                href="{{add_record_url}}">Add a Record</a>
+        </div>
+        {% endif %}
     </div>
     {% endif %}
     <!-- table to show list of records -->
