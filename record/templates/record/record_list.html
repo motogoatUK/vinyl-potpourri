@@ -7,13 +7,13 @@
 <section>
     <header class="row">
         {% if collection %}
-            <div class="col-12 col-sm-8 mt-auto">
-                <p class="text-muted mb-4 pt-3"><i class="fa fa-info-circle" aria-hidden="true"></i>
-                    {{ collection.description|default:"No description available." }}
-                </p>
-                <div class="card-title fs-3">{{collection}}</div>
-                <p class="small">Owner: {{collection.username.name}}</p>
-            </div>
+        <div class="col-12 col-sm-8 mt-auto">
+            <p class="text-muted mb-4 pt-3"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                {{ collection.description|default:"No description available." }}
+            </p>
+            <div class="card-title fs-3">{{collection}}</div>
+            <p class="small">Owner: {{collection.username.name}}</p>
+        </div>
         <div class="col-12 col-sm-4">
             <img src="{% static 'images/vinyl-placeholder.png' %}" alt="placeholder image">
         </div>
@@ -21,9 +21,24 @@
         {% endif %}
         <h2>Records list{% if collection %} - from collection: {{collection}}{%endif%}</h2>
     </header>
-    {% if collection %}<a class="mb-2 col-12 m-2 btn btn-outline-primary btn-delete rounded-0" href="{% url 'delete_collection' collection.id %}">Delete this collection</a>
-    <br>{% endif %}
-    <a class="col-12 m-2 btn btn-outline-primary btn-custom rounded-0" href="{{add_record_url}}">Add a Record</a>
+    <!-- show add/edit/delete buttons if logged in -->
+    {% if user.is_authenticated %}
+    <div class="d-flex row">
+        {% if collection %}
+        <div class="col-6">
+            <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0"
+                href="{% url 'edit_collection' collection.id %}">Edit collection details</a>
+        </div>
+        <div class="col-6">
+            <a class="w-100 m-2 btn btn-outline-primary btn-delete rounded-0"
+                href="{% url 'delete_collection' collection.id %}">Delete this collection</a>
+        </div>
+        {% endif %}
+        <div class="col-12">
+            <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0" href="{{add_record_url}}">Add a Record</a>
+        </div>
+    </div>
+    {% endif %}
     <!-- table to show list of records -->
     <div class="table-responsive">
         <table class="table table-dark table-striped">
@@ -32,7 +47,7 @@
                     <th>Title</th>
                     <th>B Side</th>
                     <th>Spindle</th>
-                    <th>link</th>
+                    <th>View Details {% if user.is_authenticated %} / Edit{%endif%}</th>
                 </tr>
             </thead>
             {% for record in object_list %}
@@ -49,23 +64,23 @@
 {% endblock %}
 {% block js_scripts %}
 <!-- Bootstrap modal -->
-        <div class="modal fade" id="modalWindow" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content bg-custom">
-                    <div class="modal-header bg-danger">
-                        <h5 class="modal-title">Confirm Deletion</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="modal-content">{{collection}}</div>
-                    </div>
-                    <div class="modal-footer">
-                        <a id="modalConfirm" href="#" class="btn btn-danger">Save changes</a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
+<div class="modal fade" id="modalWindow" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-custom">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
             </div>
-        </div><!-- Modal end -->
+            <div class="modal-body">
+                <div id="modal-content">{{collection}}</div>
+            </div>
+            <div class="modal-footer">
+                <a id="modalConfirm" href="#" class="btn btn-danger">Save changes</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div><!-- Modal end -->
 <script src="{% static 'js/delete-collection.js'%}"></script>
 {% endblock %}

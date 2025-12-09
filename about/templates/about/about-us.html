@@ -4,21 +4,33 @@
 {{ block.super }}
 <div class="container">
     <div class="row">
-        <div class="col-4 text-center">
-            <img src="{% static 'images\vinyl-placeholder.png' %}">
+        <div class="col-md-4 m-2 text-center">
+            <img class="img-fluid img-md-fixed" src="{% static 'images/vinyl-placeholder.png' %}">
         </div>
-        <div class="col-8">
+        <div class="col-md-7 m-2">
             <!-- title -->
             <h2>{{ about.title }}</h2>
-            {{ about.content }}
+            {{ about.content | safe }}
         </div>
     </div>
     <div class="row">
-        <div class="col text-right">
+        <div class="col-12 mt-4 text-right">
             <!-- updated_on -->
             <p class="text-end small">Last Updated: {{ about.updated_on }}
             </p>
         </div>
-      </div>
+        <div class="col-12 text-center">
+            <p> Premium membership prices:</p>
+            <p>
+                {% for p in product %}
+                <i class="fa fa-cc-stripe fs-4 px-2" aria-hidden="true"></i>{{ p.name}} &pound;{{p.price}}
+                {% if not forloop.last %} or {% endif %} 
+                {% endfor %}
+            </p>
+            {% if not user.my_profile.premium %}
+                <p><a class="btn btn-outline-warning rounded-0" href="#">Buy Premium</a>
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}

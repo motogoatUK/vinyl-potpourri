@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import About
+from checkout.models import Product
 
 
 def about_us(request):
@@ -9,6 +10,10 @@ def about_us(request):
     """
     # get the latest updated content
     about = About.objects.order_by("updated_on").last()
-    context = {'about': about, }
+    # get the product info
+    product = Product.objects.order_by('price')
+    context = {'about': about,
+               'product': product,
+               }
 
     return render(request, "about/about-us.html", context)

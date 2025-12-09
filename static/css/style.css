@@ -148,7 +148,10 @@ h1, h2 {font-family: var(--heading-font);
 .overtype {
 text-shadow: -1px -1px 2px black, 1px 1px 2px black, 1px -1px 2px black, -1px 1px 2px  black;
 }
-
+/* give the FA-icons some breathing space */
+footer i {
+    padding: 5px;
+}
 /* style autocomplete fields */
 /* Autocomplete dropdown container */
 .autocomplete-wrapper {
@@ -199,6 +202,11 @@ text-shadow: -1px -1px 2px black, 1px 1px 2px black, 1px -1px 2px black, -1px 1p
 @media (min-width:768px){
     .article-box {
         max-width:30%;
+    }
+    /* fix image width above md breakpoint */
+    .img-md-fixed {
+        width:250px;
+        height:auto;
     }
 }
 @media (min-width:1024px){
