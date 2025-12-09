@@ -28,7 +28,7 @@
                 {% endfor %}
             </p>
             {% if not user.my_profile.premium %}
-                <p><a class="btn btn-outline-warning rounded-0" href="#">Buy Premium</a>
+                <p><a class="btn btn-outline-warning rounded-0" href="{% url 'checkout' %}">Buy Premium</a>
             {% endif %}
         </div>
     </div>
