@@ -21,17 +21,17 @@
                 {{ form | crispy }}
                 <fieldset class="mb-2">
                     <legend class="fieldset-label pe-2 w-auto">*Select your plan - {{user}}</legend>
-                    <select class="form-select" required="">{% for prod in product %}
+                    <select id="item" name="item" class="form-select" required="">{% for prod in product %}
                         <option value="{{prod.sku}}">{{prod}}</option>
                         {% endfor %}
                     </select>
                 </fieldset>
                 <!-- Stripe Elements -->
-                <fieldset class="px-3">
-                    <legend class="fieldset-label small px-2 w-auto">Payment</legend>
+                <fieldset>
+                    <legend class="fieldset-label small w-auto">Credit Card Payment (via Stripe)</legend>
                     <!-- Stripe card element will go here -->
-                    <div class="mb-3" id="card-element"></div>
-
+                    <div class="bg-dark p-3 mb-3" id="card-element"></div>
+                    <div class="small text-muted">No card details can be seen or saved by this app</div>
                     <!-- Used to display stripe errors -->
                     <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                     <input type="hidden" value="{{ client_secret }}" name="client_secret">
@@ -40,7 +40,7 @@
                 <div class="submit-button text-right mt-5 mb-2">
                     <button id="submit-button" class="w-100 btn btn-outline-primary btn-custom rounded-0">
                         <div class="spinner hidden" id="spinner"></div>
-                        <span class="font-weight-bold">Complete Order</span>
+                        <span id="button-text" class="font-weight-bold">Complete Order</span>
                         <span class="icon">
                             <i class="fas fa-lock"></i>
                         </span>
@@ -48,7 +48,7 @@
                     <div id="payment-message" class="hidden"></div>
                     <p class="small text-danger mt-0 mb-2">
                         <i class="fas fa-exclamation-circle"></i>
-                        <span>Your card will be charged <strong>&pound;<span id="selected_price">0.00</span></strong></span>
+                        <span>Your card will be charged <strong>&pound;<span id="selected-price">0.00</span></strong></span>
                     </p>
                 </div>
             </form>
