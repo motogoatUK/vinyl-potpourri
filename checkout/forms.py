@@ -12,4 +12,5 @@ class OrderForm(forms.ModelForm):
 
 def __init__(self, *args, **kwargs):
     """ Set autofocus to name field """
+    super().__init__(*args, **kwargs)
     self.fields['full_name'].widget.attrs['autofocus'] = True
