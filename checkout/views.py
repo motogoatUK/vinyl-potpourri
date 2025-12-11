@@ -1,11 +1,12 @@
 import stripe
 from datetime import date
-from dateutil import relativedelta
+from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
+from django_countries.fields import Country
 from .forms import OrderForm
 from .models import Order, Product
 from my_profile.models import My_Profile
@@ -133,7 +134,7 @@ def checkout_success(request, order_number):
     # Attach the user's profile to the order
     if request.user.is_authenticated:
         profile = My_Profile.objects.get(user=request.user)
-        order.user_profile = profile.user
+        order.user_profile = profile
         order.save()
         # Save the users default info to their profile
         if save_info:
@@ -144,11 +145,14 @@ def checkout_success(request, order_number):
                 'default_town_or_city': order.town_or_city,
                 'default_county': order.county,
                 'default_postcode': order.postcode,
-                'default_country': order.country,
+                'default_country': Country(order.country).code if
+                order.country else None,
             }
             user_profile_form = FullProfileForm(profile_data, instance=profile)
             if user_profile_form.is_valid():
                 user_profile_form.save()
+            else:
+                messages.error(request, user_profile_form.errors)
         # Handle upgrading user account
         plan_months = int(request.GET.get("months", 3))
         today = date.today()
