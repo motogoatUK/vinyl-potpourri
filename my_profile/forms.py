@@ -8,3 +8,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = My_Profile
         fields = ['name']
+
+
+class FullProfileForm(forms.ModelForm):
+    model = My_Profile

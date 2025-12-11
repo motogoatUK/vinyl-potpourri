@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Checkout Success{% endblock %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock %}
+{% block main_content %}
+{{ block.super }}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Successful checkout</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p>{{order.number}} - complete</p>
+            <p>Premium set and expiry date set to {{exp_date}}
+            {% if save_info %} and your info was saved {% endif %}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Checkout Form{% endblock %}
 {% block extra_head %}
 {% load static %}
     <link rel="stylesheet" href="{% static 'css/checkout.css' %}"/>
@@ -19,6 +20,8 @@
             <form method="post" id="payment-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form | crispy }}
+                <label class="form-check-label small mb-2" for="id-save-info">Save above information to my profile</label>
+                <input type="checkbox" class="form-check-input" id="id-save-info" name="save-info" checked>
                 <fieldset class="mb-2">
                     <legend class="fieldset-label pe-2 w-auto">*Select your plan - {{user}}</legend>
                     <select id="item" name="item" class="form-select" required="">{% for prod in product %}
