@@ -24,19 +24,19 @@
     <!-- show add/edit/delete buttons if logged in -->
     {% if user.is_authenticated %}
     <div class="d-flex row">
-        {% if collection %}
-        <div class="col-6">
-            <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0"
-                href="{% url 'edit_collection' collection.id %}">Edit collection details</a>
-        </div>
-        <div class="col-6">
-            <a class="w-100 m-2 btn btn-outline-primary btn-delete rounded-0"
-                href="{% url 'delete_collection' collection.id %}">Delete this collection</a>
-        </div>
-        <div class="col-12">
-            <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0"
-                href="{{add_record_url}}?collection={{collection.id}}">Add a Record</a>
-        </div>
+        {% if collection and user.id == collection.username.id %}
+            <div class="col-6">
+                <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0"
+                    href="{% url 'edit_collection' collection.id %}">Edit collection details</a>
+            </div>
+            <div class="col-6">
+                <a class="w-100 m-2 btn btn-outline-primary btn-delete rounded-0"
+                    href="{% url 'delete_collection' collection.id %}">Delete this collection</a>
+            </div>
+            <div class="col-12">
+                <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0"
+                    href="{{add_record_url}}?collection={{collection.id}}">Add a Record</a>
+            </div>            
         {% else %}
         <div class="col-12">
             <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0"
