@@ -25,7 +25,7 @@
     <!-- show add/edit/delete buttons if logged in -->
     {% if user.is_authenticated %}
     <div class="d-flex row">
-        {% if collection and user.id == collection.username.id %}
+        {% if collection and user == collection.username.user %}
             <div class="col-6">
                 <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0"
                     href="{% url 'edit_collection' collection.id %}">Edit collection details</a>

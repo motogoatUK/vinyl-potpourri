@@ -22,7 +22,7 @@
         </div>
         <div class="col-12 col-sm-4"><img src="{% static 'images/vinyl-placeholder.png' %}" alt="placeholder image">
     </div>
-    {% if user.is_authenticated and user.id == record.collection.username.id %}
+    {% if user.is_authenticated and user == record.collection.username.user %}
     <a class="btn btn-outline-primary btn-custom rounded-0" href="{{edit_url}}">Edit Record</a>
     <br>
     <a class="mt-2 btn btn-outline-warning btn-delete rounded-0" href="{{delete_url}}">Delete Record</a>
