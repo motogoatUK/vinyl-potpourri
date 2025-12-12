@@ -1,6 +1,8 @@
 import stripe
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -65,7 +67,6 @@ def checkout(request):
             'county': request.POST.get('county', ''),
             'postcode': request.POST.get('postcode', ''),
             'country': request.POST.get('country', ''),
-            'item': item_sku,
             }
         order_form = OrderForm(form_data)
         if order_form.is_valid():
@@ -79,6 +80,7 @@ def checkout(request):
             order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
+            order.item = item_sku
             order.order_total = product.price
             order.save()
             request.session['save_info'] = 'save-info' in request.POST
@@ -154,14 +156,16 @@ def checkout_success(request, order_number):
             else:
                 messages.error(request, user_profile_form.errors)
         # Handle upgrading user account
-        plan_months = int(request.GET.get("months", 3))
+        # read months from product sku
+        product = Product.objects.get(sku=order.item)
+        plan_months = product.months
         today = date.today()
         # If existing exp_date is in the future, extend from it.
         if profile.exp_date and profile.exp_date > today:
             start_date = profile.exp_date
         else:
             start_date = today
-        # Add months (3, 6, 12)
+        # Add months (plan_months)
         new_exp_date = start_date + relativedelta(months=plan_months)
         # Update fields
         profile.premium = True
@@ -180,5 +184,28 @@ def checkout_success(request, order_number):
         'save_info': save_info,
         'exp_date': new_exp_date
     }
+    _send_confirmation_email(context)
 
     return render(request, template, context)
+
+
+def _send_confirmation_email(context):
+    """Send the user a confirmation email"""
+    cust_email = context['order'].email
+    subject = render_to_string(
+        'checkout/emails/order-confirmation-subject.txt',
+        {'order': context['order']})
+    body = render_to_string(
+        'checkout/emails/order-confirmation-body.txt',
+        {'order': context['order'],
+         'contact_email': settings.DEFAULT_FROM_EMAIL,
+         'exp_date': context['exp_date'],
+         'save_info': context['save_info'],
+         })
+
+    send_mail(
+        subject,
+        body,
+        settings.DEFAULT_FROM_EMAIL,
+        [cust_email]
+    )

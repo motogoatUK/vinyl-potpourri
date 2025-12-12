@@ -15,9 +15,9 @@
     </div>
     <div class="row">
         <div class="col">
-            <p>{{order.number}} - complete</p>
-            <p>Premium set and expiry date set to {{exp_date}}
-            {% if save_info %} and your info was saved {% endif %}</p>
+            <p>Order number:{{order.order_number}} - complete</p>
+            <p>You are now a Premium user and your expiry date set to {{exp_date}}.
+            {% if save_info %}Your info was saved for any future orders{% endif %}</p>
         </div>
     </div>
 </div>

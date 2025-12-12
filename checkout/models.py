@@ -29,6 +29,7 @@ class Order(models.Model):
         null=False,
         default=0
     )
+    item = models.CharField(max_length=254)
     stripe_pid = models.CharField(max_length=254, null=False, blank=False)
 
     def _generate_order_number(self):
@@ -56,6 +57,7 @@ class Product(models.Model):
     holds product key, name and price
     """
     sku = models.CharField(max_length=254, null=True, blank=True)
+    months = models.PositiveSmallIntegerField(default=0)
     name = models.CharField(max_length=254)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
