@@ -2,19 +2,22 @@
 {% block title %}Collection List{% endblock %}
 
 {% block main_content %}
+{{block.super}}
 <h2>Collections</h2>
-<table class="table table-hover">
+<table class="table table-hover table-striped">
     <thead>
         <tr>
             <th>Name (click to view)</th>
             <th>Owner</th>
         </tr>
     </thead>
-    {% for collection in object_list %}
-    <tr>
-        <td><a href="{% url 'view_collection' collection.id %}" class="d-block text-decoration-none">{{collection}}</a></td>
-        <td>{{collection.username.name}}</td>
-    </tr>
-    {% endfor %}
+    <tbody class="table-group-divider">
+        {% for collection in object_list %}
+        <tr>
+            <td><a href="{% url 'view_collection' collection.id %}" class="d-block text-decoration-none">{{collection}}</a></td>
+            <td>{{collection.username.name}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}

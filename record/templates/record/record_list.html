@@ -3,6 +3,7 @@
 {% block title %}Record List{% endblock %}
 
 {% block main_content %}
+{{ block.super }}
 {% url 'add_record' as add_record_url %}
 <section>
     <header class="row">
@@ -56,14 +57,16 @@
                     <th>View Details {% if user.is_authenticated %} / Edit{%endif%}</th>
                 </tr>
             </thead>
-            {% for record in object_list %}
-            <tr>
-                <td class="copy-bold text-nowrap">{{record}}</td>
-                <td>{{record.b_side}}</td>
-                <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
-                <td><a href="/record/{{record.slug}}">{{record.slug}}</a></td>
-            </tr>
-            {% endfor %}
+            <tbody class="table-group-divider">
+                {% for record in object_list %}
+                <tr>
+                    <td class="copy-bold text-nowrap">{{record}}</td>
+                    <td>{{record.b_side}}</td>
+                    <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
+                    <td><a href="/record/{{record.slug}}">{{record.slug}}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 </section>

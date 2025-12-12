@@ -76,6 +76,7 @@ h1, h2 {font-family: var(--heading-font);
     top: 72px;
     right: 15px;
     z-index: 9999;
+    width:75vw;
 }
 /* override bootstrap style */
 .form-control, .form-select, .form-check-input[type="checkbox"] {
@@ -198,12 +199,16 @@ footer i {
 }
 
 /* Media Queries */
-/* md breakpoint */
+/* sm breakpoint */
 @media (min-width:576px){
     .article-box {
         max-width:48%;
     }
+    .message-container {
+        width: auto;
+    }
 }
+/* md breakpoint */
 @media (min-width:768px){
     .article-box {
         max-width:30%;
@@ -214,7 +219,8 @@ footer i {
         height:auto;
     }
 }
-@media (min-width:1024px){
+/* lg breakpoint */
+@media (min-width:992px){
     .article-box {
         max-width:23%;
     }

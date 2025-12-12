@@ -20,6 +20,10 @@
         {% endif %}
         Status: {% if profile.premium %}Premium<br>
         Sub Date: {{ profile.sub_date }} (expires {{ profile.exp_date }})
+        <p>
+            <a class="btn btn-outline-warning rounded-0" href="{% url 'checkout' %}">Extend Subscription</a>
+            <span class="small text-muted">[Will be added onto current subscription]</span>
+        </p>
         {% else %}Standard User
     </p>
     <p><a class="btn btn-outline-warning rounded-0" href="{% url 'checkout' %}">Upgrade to Premium</a>

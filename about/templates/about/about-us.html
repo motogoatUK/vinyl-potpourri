@@ -27,9 +27,11 @@
                 {% if not forloop.last %} or {% endif %} 
                 {% endfor %}
             </p>
-            {% if not user.my_profile.premium %}
-                <p><a class="btn btn-outline-warning rounded-0" href="{% url 'checkout' %}">Buy Premium</a>
-            {% endif %}
+            
+                <p>
+                    <a class="btn btn-outline-warning rounded-0" href="{% url 'checkout' %}">
+                    {% if not user.my_profile.premium %}Buy Premium{% else %}Extend Subscription{% endif %}</a>
+                </p>
         </div>
     </div>
 </div>
