@@ -13,8 +13,11 @@ class OrderForm(forms.ModelForm):
             'country': CountrySelectWidget(attrs={'class': 'form-control'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        """ Set autofocus to name field """
+        super().__init__(*args, **kwargs)
+        self.fields['full_name'].widget.attrs['autofocus'] = True
 
-def __init__(self, *args, **kwargs):
-    """ Set autofocus to name field """
-    super().__init__(*args, **kwargs)
-    self.fields['full_name'].widget.attrs['autofocus'] = True
+        # Set default country to UK (GB)
+        if not self.initial.get('country'):
+            self.initial['country'] = 'GB'
