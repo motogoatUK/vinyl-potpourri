@@ -55,18 +55,17 @@ class RecordForm(forms.ModelForm):
             # get the current artist/location
             self.fields['artist_name'].initial = self.instance.artist
             self.fields['location_name'].initial = self.instance.location
+        if not user.my_profile.premium:
+            self.fields['image'].disabled = True
+            self.fields['image'].help_text = "Premium Feature."
 
     class Meta:
         model = Record
         # don't include 'slug'
-        fields = ['artist_name', 'artist_id', 'a_side', 'b_side',
+        fields = ['artist_name', 'artist_id', 'a_side', 'b_side', 'image',
                   'large_hole', 'notes', 'location_name', 'location_id',
                   'collection'
                   ]
-        # include the slug but make it hidden
-        # widgets = {
-        #     'slug': forms.HiddenInput()
-        # }
 
     def clean(self):
         """

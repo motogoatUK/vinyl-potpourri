@@ -20,7 +20,7 @@ class Record(models.Model):
     b_side = models.CharField(max_length=80, blank=True)
     large_hole = models.BooleanField(default=False)
     notes = models.TextField(null=True, blank=True)
-    # image = models.ImageField(default='placeholder')
+    image = models.ImageField(null=True, blank=True)
     slug = models.SlugField(max_length=80, unique=True)
     artist = models.ForeignKey(
         'Artist',
