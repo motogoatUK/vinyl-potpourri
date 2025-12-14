@@ -5,18 +5,33 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 m-2 text-center">
-            <img class="img-fluid img-md-fixed" src="{% static 'images/vinyl-placeholder.png' %}">
+            <img class="img-fluid img-md-fixed"
+             src="{% if about.image and about.image.url %}{{ about.image.url }}
+             {% else %}
+             {% static 'images/vinyl-placeholder.png' %}            
+             {% endif %}" alt="About image">
         </div>
         <div class="col-md-7 m-2">
+            <h2>We are Vinyl Potpourri</h2>
+            {% for about in abouts %}
+            <section>
             <!-- title -->
-            <h2>{{ about.title }}</h2>
+            <h3>{{ about.title }}</h3>
             {{ about.content | safe }}
-        </div>
+        
+            <div class="mt-4 text-right">
+                <!-- updated_on -->
+                <p class="text-end small">Post Last Updated: {{ about.updated_on }}
+                </p>
+            </div>
+            </section>
+    {% endfor %}
+    </div>
     </div>
     <div class="row">
         <div class="col-12 mt-4 text-right">
             <!-- updated_on -->
-            <p class="text-end small">Last Updated: {{ about.updated_on }}
+            <p class="text-end small">Page Last Updated: {{ abouts.last.updated_on }}
             </p>
         </div>
         <div class="col-12 text-center">
