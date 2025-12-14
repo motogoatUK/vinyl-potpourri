@@ -9,10 +9,10 @@ def about_us(request):
     Template: `about/about-us.html`
     """
     # get the latest updated content
-    abouts = About.objects.order_by("updated_on")
+    about = About.objects.order_by("updated_on").last()
     # get the product info
     product = Product.objects.order_by('price')
-    context = {'abouts': abouts,
+    context = {'about': about,
                'product': product,
                }
 
