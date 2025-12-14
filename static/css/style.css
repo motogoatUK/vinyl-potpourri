@@ -82,8 +82,11 @@ h1, h2 {font-family: var(--heading-font);
 .form-control, .form-select, .form-check-input[type="checkbox"] {
     border-radius: 0;
 }
+.form-check-input:checked {
+    background-color: var(--main-brand);
+}
 .btn-custom:hover, .btn-delete:hover {
-    background-color:var(--light-accent);
+    background-color: var(--light-accent);
     color:var(--dark-shade);
     border-color: var(--light-accent);
     transition: all 0.4s ease;
@@ -156,7 +159,12 @@ text-shadow: -1px -1px 2px black, 1px 1px 2px black, 1px -1px 2px black, -1px 1p
 }
 /* give the FA-icons some breathing space */
 footer i {
-    padding: 5px;
+    padding: 6px;
+}
+footer i:hover {
+    color: var(--main-brand);
+    transform: rotate(-15deg);
+    transition: all .4s;
 }
 /* style autocomplete fields */
 /* Autocomplete dropdown container */
