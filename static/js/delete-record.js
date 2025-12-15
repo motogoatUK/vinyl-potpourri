@@ -11,13 +11,11 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let button of deleteButtons) {
         button.addEventListener("click", (e) => {
             e.preventDefault();
-            let message = "Are you sure you want to delete this record?<br>";
-            message += modalContent.innerText;
             /* set modal button link */
             modalConfirm.href = e.target.href;
             /* set modal title, content and button text and show the modal */
             modalConfirm.innerText = "Delete";
-            modalContent.innerHTML = message;
+            modalContent.innerHTML = "Are you sure you want to delete this record?<br>" + button.dataset.record;
             modalWindow.show();
         })
     }

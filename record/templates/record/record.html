@@ -30,7 +30,8 @@
     {% if user.is_authenticated and user == record.collection.username.user %}
     <a class="btn btn-outline-primary btn-custom rounded-0" href="{{edit_url}}">Edit Record</a>
     <br>
-    <a class="mt-2 btn btn-outline-warning btn-delete rounded-0" href="{{delete_url}}">Delete Record</a>
+    <a class="mt-2 btn btn-outline-warning btn-delete rounded-0"
+     data-record="{{record}}" href="{{delete_url}}">Delete Record</a>
     {% else %}<hr>
     {% endif %}
 </section>
@@ -46,7 +47,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div id="modal-content">{{record}}</div>
+                        <div id="modal-content"></div>
                     </div>
                     <div class="modal-footer">
                         <a id="modalConfirm" href="#" class="btn btn-danger">Save changes</a>
