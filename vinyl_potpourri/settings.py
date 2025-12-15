@@ -164,12 +164,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+DEV_USE = os.environ.get("DEV_USE") == "1"
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-if os.environ.get('USE_AWS') == '1':
-    # S3 used instead so whitenoise not needed
-    MIDDLEWARE.remove('whitenoise.middleware.WhiteNoiseMiddleware')
+if DEV_USE:
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+else:
     AWS_STORAGE_BUCKET_NAME = 'vinyl-potpourri-bucket'
     AWS_S3_REGION_NAME = 'us-east-1'
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -190,11 +196,6 @@ if os.environ.get('USE_AWS') == '1':
     # Override static and media URL's in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
-
-else:
-    STATIC_URL = '/static/'
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-    MEDIA_URL = '/media/'
 
 # Email
 
