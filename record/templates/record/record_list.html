@@ -55,9 +55,14 @@
         <table class="table table-dark table-striped">
             <thead>
                 <tr class="title-font">
-                    <th>Title</th>
-                    <th>B Side</th>
-                    <th>Spindle</th>
+                    <th>
+                        Title <a href="?ordering=a_side"><i class="ps-2 fa fa-sort-asc" aria-hidden="true"></i></a>
+                         Sort <a href="?ordering=-a_side"><i class="ps-2 pe-4 fa fa-sort-desc" aria-hidden="true"></i></a>
+                        Artist <a href="?ordering=artist"><i class="ps-2 fa fa-sort-asc" aria-hidden="true"></i></a>
+                         Sort <a href="?ordering=-artist"><i class="ps-2 fa fa-sort-desc" aria-hidden="true"></i></a>
+                    </th>
+                    <th id="b-side">B Side</th>
+                    <th id="spindle">Spindle</th>
                     <th>View Details {% if user.is_authenticated %} / Edit{%endif%}</th>
                 </tr>
             </thead>
