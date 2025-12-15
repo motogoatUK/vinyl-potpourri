@@ -167,6 +167,7 @@ USE_TZ = True
 DEV_USE = os.environ.get("DEV_USE") == "1"
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AWS_STORAGE_BUCKET_NAME = 'vinyl-potpourri-bucket'
@@ -198,7 +199,6 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 if DEV_USE:
     print("DEV USE SET")
     STATIC_URL = '/static/'
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     STORAGES = {
         "default": {
             "BACKEND": "vinyl_potpourri.custom_storages.MediaStorage",
