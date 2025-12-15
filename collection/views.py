@@ -75,7 +75,8 @@ def add_collection(request):
         return redirect(reverse('my_profile'))
 
     if request.method == 'POST':
-        form = CollectionForm(request.POST, request.FILES)
+        form = CollectionForm(request.POST,
+                              request.FILES)
         if form.is_valid():
             # add current user to form
             myform = form.save(commit=False)
@@ -86,7 +87,7 @@ def add_collection(request):
         else:
             messages.error(request, 'Failed to add Collection.')
     else:
-        form = CollectionForm()
+        form = CollectionForm(userp=profile.premium)
 
     template = 'collection/add-collection.html'
     context = {
@@ -112,13 +113,14 @@ def edit_collection(request, id):
             if form.is_valid():
                 myform = form.save(commit=False)
                 # only update selected fields from form
-                myform.save(update_fields=['name', 'description'])
+                myform.save(update_fields=['name', 'description', 'image'])
                 messages.success(request, 'Successfully modified Collection!')
-                return redirect('my_collection')
+                return redirect('collections', pk=id)
             else:
                 messages.error(request, 'Failed to modify Collection.')
         else:
-            form = CollectionForm(instance=collection)
+            form = CollectionForm(instance=collection,
+                                  userp=collection.username.premium)
 
         template = 'collection/add-collection.html'
         context = {
