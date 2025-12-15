@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}404 - Not found!{% endblock %}
+
+{% block content %}
+<div class="container m-2 text-center">
+    <div>
+        <p class="fs-1">That's a 404! </p>
+        <h2>Page not found</h2>
+        <p class="p-2"><a class="btn btn-outline-primary btn-custom" href="{% url 'home' %}">Take me home</a></p>
+        <p><a href = "mailto:test@motogoat.co.uk?subject=Page%20Missing!">Report missing page</a></p>
+        <img class="img-fluid" src="{% static 'images/vinyl-potpourri-200sq.png' %}"
+            alt="A square logo image for Vinyl Potpourri">
+    </div>
+</div>
+{% endblock %}
