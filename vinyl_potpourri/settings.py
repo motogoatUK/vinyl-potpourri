@@ -170,6 +170,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if DEV_USE:
+    print("DEV USE SET")
     STATIC_URL = '/static/'
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     MEDIA_URL = '/media/'
@@ -188,10 +189,15 @@ else:
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=31536000',
     }
-
     # Static and media files
-    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    STORAGES = {
+        "default": {
+            "BACKEND": "vinyl_potpourri.custom_storages.MediaStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "vinyl_potpourri.custom_storages.StaticStorage",
+        },
+    }
 
     # Override static and media URL's in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
