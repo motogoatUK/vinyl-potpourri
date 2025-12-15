@@ -169,39 +169,44 @@ DEV_USE = os.environ.get("DEV_USE") == "1"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+AWS_STORAGE_BUCKET_NAME = 'vinyl-potpourri-bucket'
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# IMPORTANT: REST endpoint (website endpoint doesn't support HTTPS)
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_DEFAULT_ACL = None
+# fix for incorrect URL string
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=31536000',
+}
+# Static and media files
+STORAGES = {
+    "default": {
+        "BACKEND": "vinyl_potpourri.custom_storages.MediaStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "vinyl_potpourri.custom_storages.StaticStorage",
+    },
+}
+
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+
+# Override static URL's in development
 if DEV_USE:
     print("DEV USE SET")
     STATIC_URL = '/static/'
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-else:
-    AWS_STORAGE_BUCKET_NAME = 'vinyl-potpourri-bucket'
-    AWS_S3_REGION_NAME = 'us-east-1'
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    # IMPORTANT: REST endpoint (website endpoint doesn't support HTTPS)
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-    AWS_DEFAULT_ACL = None
-    # fix for incorrect URL string
-    AWS_QUERYSTRING_AUTH = False
-    AWS_S3_OBJECT_PARAMETERS = {
-        'CacheControl': 'max-age=31536000',
-    }
-    # Static and media files
     STORAGES = {
         "default": {
             "BACKEND": "vinyl_potpourri.custom_storages.MediaStorage",
         },
         "staticfiles": {
-            "BACKEND": "vinyl_potpourri.custom_storages.StaticStorage",
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
-
-    # Override static and media URL's in production
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 
 # Email
 

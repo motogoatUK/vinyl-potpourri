@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}403 - Forbidden!{% endblock %}
+
+{% block content %}
+<div class="container m-2 text-center">
+    <div>
+        <p class="fs-1">403 - Forbidden</p>
+        <h2>Let's not try that again</h2>
+        <p class="p-2"><a class="btn btn-outline-primary btn-custom" href="{% url 'home' %}">Take me home</a></p>
+        <img class="img-fluid" src="{% static 'images/vinyl-potpourri-200sq.png' %}"
+            alt="A square logo image for Vinyl Potpourri">
+    </div>
+</div>
+{% endblock %}

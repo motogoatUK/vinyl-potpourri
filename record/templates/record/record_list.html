@@ -16,7 +16,11 @@
             <p class="small">Owner: {{collection.username.name}}</p>
         </div>
         <div class="col-12 col-sm-4">
-            <img src="{% static 'images/vinyl-placeholder.png' %}" alt="placeholder image">
+            <img class="img-fluid img-md-fixed"
+             src="{% if collection.image and collection.image.url %}{{ collection.image.url }}
+             {% else %}
+             {% static 'images/vinyl-placeholder.png' %}            
+             {% endif %}" alt="Collection image">
         </div>
         <hr>
         {% endif %}

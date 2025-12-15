@@ -124,7 +124,7 @@ def add_record(request):
             record.slug = f"{record.slug}-{record.id}"
             record.save(update_fields=['slug'])
             messages.success(request, 'Successfully added Record!')
-            return redirect('view_collection', id=record.collection_id)
+            return redirect('view_record', slug=record.slug)
         else:
             messages.error(request, 'Failed to add Record.')
     else:

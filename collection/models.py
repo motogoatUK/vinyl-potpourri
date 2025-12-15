@@ -13,6 +13,7 @@ class Collection(models.Model):
         on_delete=models.CASCADE
     )
     description = models.TextField(max_length=120, blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.name
