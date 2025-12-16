@@ -19,20 +19,22 @@ class RecordList(generic.ListView):
     """
     Returns a Listview of records, using a queryset from the model
     which doesn't contain any hidden records unless they belong to
-    the owner of the collection.
+    the owner of the collection. Allows for field ordering.
     """
     model = Record
 
     def get_queryset(self):
-        return Record.objects.visible(self.request.user)
+        queryset = Record.objects.visible(self.request.user)
+        ordering = self.get_ordering()
+        if ordering:
+            queryset = queryset.order_by(ordering)
+        return queryset
 
     def get_ordering(self):
         """
-        Override to allow dynamic ordering
-        via ?ordering=field or ?ordering=-field
+        Allow ordering via ?ordering=field or ?ordering=-field
         """
         ordering = self.request.GET.get("ordering", "title")
-
         if ordering:
             try:
                 # Validate ordering field to prevent SQL injection
@@ -44,17 +46,21 @@ class RecordList(generic.ListView):
 
 
 def artist_autocomplete(request):
+    """
+    Returns a JSON response containing Artist objects
+    based on incoming query 'q'
+    """
     q = request.GET.get("q", "")
     results = []
-
     if q:
+        # Limit results to 10
         artists = Artist.objects.filter(name__icontains=q)[:10]
         results = [{"id": a.id, "name": a.name} for a in artists]
-
     return JsonResponse(results, safe=False)
 
 
 def view_record(request, slug):
+    """ returns record object from slug """
     queryset = Record.objects.all()
     record = get_object_or_404(queryset, slug=slug)
     template = 'record/record.html'

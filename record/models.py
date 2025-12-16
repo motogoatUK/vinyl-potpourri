@@ -61,8 +61,10 @@ class Record(models.Model):
 
 
 class Artist(models.Model):
+    """
+    Artist object contains artist name
+    """
     name = models.CharField(max_length=80, blank=False, unique=True)
-    # image = models.ImageField(default='placeholder') #  for future use
 
     def __str__(self):
         return self.name
