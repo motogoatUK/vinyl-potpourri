@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 
+from collection.models import Collection
 from .models import Artist, Record
 from .forms import RecordForm
 
@@ -119,12 +120,19 @@ def add_record(request):
     referrer = (request.META.get('HTTP_REFERER'))
     profile = request.user.my_profile
     # check eligibilty to add record
-    if not profile.premium and profile.num_records > 9:
+    if not (profile.premium or profile.num_records < 10):
         messages.error(request, 'Free record limit reached.')
         if referrer:
             return HttpResponseRedirect(referrer)
         else:
             return redirect('home')
+    # check user has a collection to add records to
+    collection = Collection.objects.filter(username__user=request.user)
+    if not collection.exists():
+        messages.error(request,
+                       "You don't have any collections to add records"
+                       " to yet. Please add one.")
+        return redirect('my_profile')
 
     if request.method == 'POST':
         form = RecordForm(
@@ -150,7 +158,7 @@ def add_record(request):
         else:
             messages.error(request, 'Failed to add Record.')
     else:
-        # get collection from URL
+        # get initial collection from URL
         collection = request.GET.get("collection")
         if collection:
             # Convert to int
