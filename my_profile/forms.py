@@ -11,6 +11,7 @@ class ProfileForm(forms.ModelForm):
 
 
 class FullProfileForm(forms.ModelForm):
+    """ all order fields relating to profile """
     class Meta:
         model = My_Profile
         fields = [

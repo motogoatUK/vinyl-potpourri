@@ -21,6 +21,11 @@ class ProfileDetail(LoginRequiredMixin, generic.DetailView):
 
 
 def edit_profile(request):
+    """
+    Allow users to change profile detail
+    GET: returns form
+    POST: saves form data and returns user to profile view
+    """
     profile = request.user.my_profile
 
     if request.method == 'POST':

@@ -8,12 +8,17 @@ from .models import My_Profile
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
+    """ When a user is added, create a profile for them """
     if created:
         My_Profile.objects.create(user=instance, name=instance.username)
 
 
 @receiver(user_logged_in)
 def check_premium_expiry(sender, request, user, **kwargs):
+    """
+    On user login, checks a users subscription expiry date
+    and sets appropriate premium flag
+    """
     profile = getattr(user, "my_profile", None)
     if not profile or not profile.exp_date:
         return
