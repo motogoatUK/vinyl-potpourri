@@ -13,6 +13,7 @@ from record.models import Record
 
 
 class CollectionList(generic.ListView):
+    """ returns all collections ordered by id """
     model = Collection
     ordering = ['id']
 
@@ -48,13 +49,12 @@ def view_collection(request, id):
 
 
 def location_autocomplete(request):
+    """ returns a JSON response containing Locations"""
     q = request.GET.get("q", "")
     results = []
-
     if q:
         location = Location.objects.filter(name__icontains=q)[:10]
         results = [{"id": a.id, "name": a.name} for a in location]
-
     return JsonResponse(results, safe=False)
 
 
@@ -95,7 +95,6 @@ def add_collection(request):
         'head_tag': 'Add',
         'submit_text': 'Add Collection',
     }
-
     return render(request, template, context)
 
 

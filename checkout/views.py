@@ -22,7 +22,6 @@ def checkout(request):
 
     # load product info for the dropdown
     products = Product.objects.order_by('price')
-
     if request.method == 'GET':
         # Create initial form
         try:
@@ -109,8 +108,10 @@ def checkout(request):
 
 
 def calculate_order_amount(product):
-    # Calculate the order total on the server to prevent
-    # any manipulation of the amount on the client
+    """
+    Calculates the order total on the server to prevent
+    any manipulation of the amount on the client
+    """
     return int(product.price * 100)  # pence
 
 

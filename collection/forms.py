@@ -3,7 +3,10 @@ from .models import Collection
 
 
 class CollectionForm(forms.ModelForm):
-
+    """
+    CollectionForm for collection information
+    disables image field in not premium user
+    """
     def __init__(self, *args, **kwargs):
         userp = kwargs.pop('userp', None)
         super().__init__(*args, **kwargs)
