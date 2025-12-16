@@ -13,6 +13,9 @@
         <div class="col-12 col-sm-8">
             <div class="card-title">{{record}}</div>
             <p class="small">Location: {{record.location}}</p>
+            {% if record.hide_record %}
+                <p class="small text-muted">Hidden from public view</p>
+            {% endif %}
             <p>Artist: {{ record.artist }}<br>
                 Title: {{record.a_side}}<br>
                 B Side: {{record.b_side}}</p>

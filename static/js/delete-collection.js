@@ -11,13 +11,14 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let button of deleteButtons) {
         button.addEventListener("click", (e) => {
             e.preventDefault();
-            let message = "Are you sure you want to delete this collection?<br>";
-            message += "All records in "+ modalContent.innerText + " will be deleted";
             /* set modal button link */
             modalConfirm.href = e.target.href;
+            let btnMessage = `Are you sure you want to delete this "${button.dataset.collection}" collection?<br>`;
+            btnMessage += "<br><p>All records in this collection will be removed</p>";
+            btnMessage += `<p>Edit the records and change their collection, if required before deleting "${button.dataset.collection}".</p>`;
             /* set modal title, content and button text and show the modal */
             modalConfirm.innerText = "Confirm Delete";
-            modalContent.innerHTML = message;
+            modalContent.innerHTML = btnMessage;
             modalWindow.show();
         })
     }
