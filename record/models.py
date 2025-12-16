@@ -17,8 +17,10 @@ class RecordQuerySet(models.QuerySet):
     if they are not hidden OR they belong to the requesting user
     """
     def visible(self, user):
-        return self.filter(Q(hide_record=False) |
-                           Q(collection__username__user=user))
+        if user.is_authenticated:
+            return self.filter(Q(hide_record=False) |
+                               Q(collection__username__user=user))
+        return self.filter(hide_record=False)
 
 
 class Record(models.Model):
