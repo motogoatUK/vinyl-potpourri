@@ -116,7 +116,16 @@ def add_record(request):
     Template: edit-record
     Add vars to context
     """
-    # if request.user__profile.premium:
+    referrer = (request.META.get('HTTP_REFERER'))
+    profile = request.user.my_profile
+    # check eligibilty to add record
+    if not profile.premium and profile.num_records > 9:
+        messages.error(request, 'Free record limit reached.')
+        if referrer:
+            return HttpResponseRedirect(referrer)
+        else:
+            return redirect('home')
+
     if request.method == 'POST':
         form = RecordForm(
             request.POST,
@@ -131,7 +140,12 @@ def add_record(request):
             record.save()
             record.slug = f"{record.slug}-{record.id}"
             record.save(update_fields=['slug'])
+            # +1 to records created and add success message
+            # profile = request.user.my_profile
+            profile.num_records += 1
+            profile.save()
             messages.success(request, 'Successfully added Record!')
+            # return user to view the added record.
             return redirect('view_record', slug=record.slug)
         else:
             messages.error(request, 'Failed to add Record.')
