@@ -85,6 +85,9 @@ h1, h2 {font-family: var(--heading-font);
 .form-check-input:checked {
     background-color: var(--main-brand);
 }
+.form-label {
+    margin-bottom:0;
+}
 .btn-custom:hover, .btn-delete:hover {
     background-color: var(--light-accent);
     color:var(--dark-shade);

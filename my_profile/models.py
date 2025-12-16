@@ -9,6 +9,7 @@ class My_Profile(models.Model):
     premium = models.BooleanField(default=False)
     sub_date = models.DateField(null=True, blank=True)
     exp_date = models.DateField(null=True, blank=True)
+    num_records = models.IntegerField(default=0)
     # fields to save stripe customer details
     default_phone_number = models.CharField(
         max_length=20, null=True, blank=True)

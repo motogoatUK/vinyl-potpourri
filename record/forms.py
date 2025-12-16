@@ -57,15 +57,18 @@ class RecordForm(forms.ModelForm):
             self.fields['location_name'].initial = self.instance.location
         if not user.my_profile.premium:
             self.fields['image'].disabled = True
+            self.fields['hide_record'].disabled = True
             self.fields['image'].help_text = "Premium Feature."
+            self.fields['hide_record'].help_text = "Premium Feature."
 
     class Meta:
         model = Record
         # don't include 'slug'
         fields = ['artist_name', 'artist_id', 'a_side', 'b_side', 'image',
-                  'large_hole', 'notes', 'location_name', 'location_id',
-                  'collection'
+                  'large_hole', 'hide_record', 'notes', 'location_name',
+                  'location_id', 'collection'
                   ]
+        labels = {'hide_record': 'Hide this record from public view'}
 
     def clean(self):
         """
