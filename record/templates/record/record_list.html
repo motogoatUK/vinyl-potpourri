@@ -24,12 +24,12 @@
         </div>
         <hr>
         {% endif %}
-        <h2>Records list{% if collection %} - from collection: {{collection}}{%endif%}</h2>
+        <h2>Records list{% if collection and user == collection.username.user %} - from collection: {{collection}}{%endif%}</h2>
     </header>
     <!-- show add/edit/delete buttons if logged in -->
     {% if user.is_authenticated %}
     <div class="d-flex row">
-        {% if collection and user == collection.username.user %}
+        {% if owner %}
             <div class="col-6">
                 <a class="w-100 m-2 btn btn-outline-primary btn-custom rounded-0"
                     href="{% url 'edit_collection' collection.id %}">Edit collection details</a>
@@ -67,13 +67,14 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider">
+                <!-- loop through records -->
                 {% for record in object_list %}
-                <tr>
-                    <td class="copy-bold text-nowrap">{{record}}</td>
-                    <td>{{record.b_side}}</td>
-                    <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
-                    <td><a href="/record/{{record.slug}}">{{record.slug}}</a></td>
-                </tr>
+                    <tr>
+                        <td class="copy-bold text-nowrap">{{record}}</td>
+                        <td>{{record.b_side}}</td>
+                        <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
+                        <td><a href="/record/{{record.slug}}">{{record.slug}}</a></td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from collection.models import Collection, Location
 
 
@@ -10,6 +11,16 @@ def get_default_artist():
     return Artist.objects.get_or_create(name='Unknown')
 
 
+class RecordQuerySet(models.QuerySet):
+    """
+    RecordQuerySet filters the available list of records
+    if they are not hidden OR they belong to the requesting user
+    """
+    def visible(self, user):
+        return self.filter(Q(hide_record=False) |
+                           Q(collection__username__user=user))
+
+
 class Record(models.Model):
     """
     A single instance of Record relating to collection, artist and location
@@ -19,6 +30,7 @@ class Record(models.Model):
     a_side = models.CharField(max_length=80, blank=False)
     b_side = models.CharField(max_length=80, blank=True)
     large_hole = models.BooleanField(default=False)
+    hide_record = models.BooleanField(default=False)
     notes = models.TextField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     slug = models.SlugField(max_length=80, unique=True)
@@ -41,6 +53,8 @@ class Record(models.Model):
         blank=False,
         null=True,
     )
+
+    objects = RecordQuerySet.as_manager()
 
     def __str__(self):
         return f'{self.id}: {self.a_side} by {self.artist}'

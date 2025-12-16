@@ -15,7 +15,15 @@ def index(request):
 
 
 class RecordList(generic.ListView):
+    """
+    Returns a Listview of records, using a queryset from the model
+    which doesn't contain any hidden records unless they belong to
+    the owner of the collection.
+    """
     model = Record
+
+    def get_queryset(self):
+        return Record.objects.visible(self.request.user)
 
     def get_ordering(self):
         """
