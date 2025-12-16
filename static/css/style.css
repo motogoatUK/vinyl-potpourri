@@ -105,6 +105,14 @@ h1, h2 {font-family: var(--heading-font);
 .toast-capper {
     height: 3px;
 }
+/* table font size default */
+.table-responsive {
+    font-size: 0.8em;
+}
+.custom-md-nowrap {
+    white-space: normal;
+    min-width:244px;
+}
 /* article styling */
 .article-box {
     height:200px;
@@ -228,6 +236,14 @@ footer i:hover {
     .img-md-fixed {
         width:250px;
         height:auto;
+    }
+    /* set table font-size to normal */
+    .table-responsive {
+    font-size: 1em;
+    }
+    /* and set nowrap */
+    .custom-md-nowrap {
+    text-wrap-mode: nowrap;
     }
 }
 /* lg breakpoint */

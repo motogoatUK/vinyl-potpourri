@@ -61,7 +61,7 @@
                         Artist <a href="?ordering=artist"><i class="ps-2 fa fa-sort-asc" aria-hidden="true"></i></a>
                          Sort <a href="?ordering=-artist"><i class="ps-2 fa fa-sort-desc" aria-hidden="true"></i></a>
                     </th>
-                    <th id="b-side">B Side</th>
+                    <th id="b-side" class="d-none d-md-table-cell">B Side</th>
                     <th id="spindle">Spindle</th>
                     <th>View Details {% if user.is_authenticated %} / Edit{%endif%}</th>
                 </tr>
@@ -70,15 +70,16 @@
                 <!-- loop through records -->
                 {% for record in object_list %}
                     <tr>
-                        <td class="copy-bold text-nowrap">{{record}}</td>
-                        <td>{{record.b_side}}</td>
+                        <td class="copy-bold custom-md-nowrap">{{record}}</td>
+                        <td class="d-none d-md-table-cell">{{record.b_side}}</td>
                         <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
-                        <td><a href="/record/{{record.slug}}">{{record.slug}}</a></td>
+                        <td><a href="{% url 'view_record' record.slug %}">{{record.slug}}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    
 </section>
 {% endblock %}
 {% block js_scripts %}
