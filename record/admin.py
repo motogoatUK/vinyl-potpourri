@@ -8,7 +8,6 @@ class RecordAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'artist', 'large_hole', 'collection')
 
     # Override the save model to create a unique slug of a_side+id
-
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
         if not change:  # only on creation

@@ -9,8 +9,7 @@ class RecordForm(forms.ModelForm):
     using the following attributes to stop the browser
     showing its own autocomplete field over the top.
     `'autocomplete': 'off'` and `'inputmode': 'search'`.
-    then use the `clean(self)` function to create a new Artist if required.
-    Don't include the slug field in the form as it is auto created on save
+    then uses the `clean(self)` function to create a new Artist if required.
     """
     # Setup form fields that need to be in a different format
     artist_name = forms.CharField(
@@ -62,8 +61,10 @@ class RecordForm(forms.ModelForm):
             self.fields['hide_record'].help_text = "Premium Feature."
 
     class Meta:
+        """
+        Don't include the slug field in the form as it is auto created on save
+        """
         model = Record
-        # don't include 'slug'
         fields = ['artist_name', 'artist_id', 'a_side', 'b_side', 'image',
                   'large_hole', 'hide_record', 'notes', 'location_name',
                   'location_id', 'collection'
