@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from my_profile.models import My_Profile
+from record.utils import get_ordering
 
 from .forms import CollectionForm
 from .models import Collection, Location
@@ -38,8 +39,12 @@ def view_collection(request, id):
     queryset from records.model to hide record where applicable.
     """
     collection = get_object_or_404(Collection, pk=id)
+    ordering = get_ordering(request, Record)
     record_list = (Record.objects.visible(request.user)
-                   .filter(collection=id).order_by('id'))
+                   .filter(collection=id))
+    if ordering:
+        record_list = record_list.order_by(ordering)
+
     template = 'record/record_list.html'
     context = {
         "object_list": record_list,

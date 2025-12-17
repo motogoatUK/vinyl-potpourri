@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 
+from record.utils import get_ordering
 from collection.models import Collection
 from .models import Artist, Record
 from .forms import RecordForm
@@ -24,25 +25,11 @@ class RecordList(generic.ListView):
     model = Record
 
     def get_queryset(self):
+        ordering = get_ordering(self.request, Record)
         queryset = Record.objects.visible(self.request.user)
-        ordering = self.get_ordering()
         if ordering:
             queryset = queryset.order_by(ordering)
         return queryset
-
-    def get_ordering(self):
-        """
-        Allow ordering via ?ordering=field or ?ordering=-field
-        """
-        ordering = self.request.GET.get("ordering", "title")
-        if ordering:
-            try:
-                # Validate ordering field to prevent SQL injection
-                if ordering.lstrip('-') in [
-                        f.name for f in Record._meta.get_fields()]:
-                    return ordering
-            except ValueError:
-                pass  # Ignore invalid ordering fields
 
 
 def artist_autocomplete(request):
@@ -63,13 +50,22 @@ def view_record(request, slug):
     """ returns record object from slug """
     queryset = Record.objects.all()
     record = get_object_or_404(queryset, slug=slug)
-    template = 'record/record.html'
-    context = {
-        "record": record,
-    }
-    return render(
-        request, template, context
-    )
+    # check if hidden
+    if (not record.hide_record or
+            request.user == record.collection.username.user):
+        template = 'record/record.html'
+        context = {
+            "record": record,
+        }
+        return render(
+            request, template, context
+        )
+    else:
+        messages.error(request, 'That record is hidden from view by the owner')
+        if (request.META.get('HTTP_REFERER')):
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            # or 403 if no referrer
+        raise PermissionDenied
 
 
 @login_required
@@ -108,9 +104,9 @@ def edit_record(request, slug):
         return render(request, template, context)
 
     else:
-        # send user back to referring page with error
+        # set message and send user back to referring page
+        messages.error(request, 'record is not in your collection')
         if (request.META.get('HTTP_REFERER')):
-            messages.error(request, 'record is not in your collection')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         # or 403 if no referrer
     raise PermissionDenied
