@@ -153,8 +153,15 @@ def delete_collection(request, id):
     doomed = get_object_or_404(queryset, id=id)
     # Check the collection belongs to the user
     if doomed.username.user == request.user:
+        # get number of records in collection and update users profile
+        num_records = doomed.record_set.count()
+        if num_records > 0:
+            profile = request.user.my_profile
+            profile.num_records -= num_records
+            profile.save()
         doomed.delete()
-        messages.add_message(request, messages.SUCCESS, f'"{doomed}" deleted!')
+        messages.success(request, f'"{doomed}" deleted!')
+        messages.success(request, f'{num_records} records were also deleted.')
         # Send user back to collection list as collection will no longer exist
         return redirect('collections')
     else:
