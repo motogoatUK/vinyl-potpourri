@@ -192,6 +192,10 @@ def delete_record(request, slug):
     if doomed_record.collection.username.user == request.user:
         doomed_record.delete()
         messages.add_message(request, messages.SUCCESS, "Record deleted!")
+        # remove 1 from users num_records
+        profile = request.user.my_profile
+        profile.num_records -= 1
+        profile.save()
         # Send user back to collection list as record will no longer exist
         return redirect('view_collection', id=doomed_record.collection_id)
     else:
