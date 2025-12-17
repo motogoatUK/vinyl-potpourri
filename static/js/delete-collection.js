@@ -20,6 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
             modalConfirm.innerText = "Confirm Delete";
             modalContent.innerHTML = btnMessage;
             modalWindow.show();
-        })
-    }
-})
+        });
+    };
+});

@@ -3,17 +3,17 @@
  * gets selected plan and creates card payment element
  */
 // update selected plan
-const plan = document.getElementById("item")
-const selectedPrice = document.getElementById("selected-price")
+const plan = document.getElementById("item");
+const selectedPrice = document.getElementById("selected-price");
 // set price on pageload
-let planText = plan.options[plan.selectedIndex].innerText
+let planText = plan.options[plan.selectedIndex].innerText;
 selectedPrice.innerText = planText.split('£')[1];
 // add listener for any changes
 plan.addEventListener("change", () => {
-    let planText = plan.options[plan.selectedIndex].innerText
-    newPrice = planText.split('£')[1];
+    let planText = plan.options[plan.selectedIndex].innerText;
+    let newPrice = planText.split('£')[1];
     selectedPrice.innerText = newPrice;
-})
+});
 
 // Stripe checkout
 const stripePublicKey = JSON.parse(

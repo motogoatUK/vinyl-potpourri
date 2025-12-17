@@ -17,6 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
             modalConfirm.innerText = "Delete";
             modalContent.innerHTML = "Are you sure you want to delete this record?<br>" + button.dataset.record;
             modalWindow.show();
-        })
-    }
-})
+        });
+    };
+});
