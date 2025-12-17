@@ -9,6 +9,7 @@ class About(models.Model):
     image = models.ImageField(null=True, blank=True)
     content = models.TextField()
     updated_on = models.DateTimeField(auto_now=True)
+    free_tier_records = models.PositiveSmallIntegerField(default=10)
 
     def __str__(self):
         return self.title

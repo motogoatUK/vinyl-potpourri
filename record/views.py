@@ -8,6 +8,7 @@ from django.utils.text import slugify
 
 from record.utils import get_ordering
 from collection.models import Collection
+from about.models import About
 from .models import Artist, Record
 from .forms import RecordForm
 
@@ -121,8 +122,10 @@ def add_record(request):
     """
     referrer = (request.META.get('HTTP_REFERER'))
     profile = request.user.my_profile
+    about = About.objects.order_by("updated_on").last()
+    free_tier = about.free_tier_records if about else 10
     # check eligibilty to add record
-    if not (profile.premium or profile.num_records < 10):
+    if not (profile.premium or profile.num_records < free_tier):
         messages.error(request, 'Free record limit reached.')
         if referrer:
             return HttpResponseRedirect(referrer)
@@ -189,6 +192,10 @@ def delete_record(request, slug):
     if doomed_record.collection.username.user == request.user:
         doomed_record.delete()
         messages.add_message(request, messages.SUCCESS, "Record deleted!")
+        # remove 1 from users num_records
+        profile = request.user.my_profile
+        profile.num_records -= 1
+        profile.save()
         # Send user back to collection list as record will no longer exist
         return redirect('view_collection', id=doomed_record.collection_id)
     else:
