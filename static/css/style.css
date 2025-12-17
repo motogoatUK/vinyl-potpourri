@@ -120,27 +120,28 @@ h1, h2 {font-family: var(--heading-font);
     position: relative;
 }
 /* stop the title text overflowing and making headings different sizes */
-.article-box #coll-head {    
+.article-box .coll-head {    
     white-space: nowrap;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.article-box #coll-head:hover {
+.article-box .coll-head:hover {
     white-space: normal;
     overflow: visible;
     background-color: rgb(25, 29, 32);
     z-index: 5;
     position: absolute;
-    left:0;
-    top:0;
-    padding: 4px;
+    left: 0;
+    top: 0;
+    padding-top: 0;
+    width: 100%;
     /* ease-in hover transition */    
     transition: background-color 1s ease;
 }
 /* set min-height to stop collapse when heading text is floated on hover */
 .article-box .card-heading {
-    min-height:2.1em;
+    min-height:2.3em;
 }
 .article-box img {
     float: right;

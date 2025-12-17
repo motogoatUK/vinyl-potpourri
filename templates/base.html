@@ -70,27 +70,25 @@
                             <a class="nav-link{% if request.path == about_url %} active" aria-current="page{% endif %}"
                                 href="{{ about_url }}">About</a>
                         </li>
+                        {% if user.is_authenticated %}
                         <!-- ms-auto moves these items to the right side of the navbar -->
-                        <li class="nav-item ms-auto">
-                            {% if user.is_authenticated %}
-                            <a class="nav-link{% if request.path == logout_url %} active" aria-current="page{% endif %}"
-                                href="{{logout_url}}">Logout
-                            </a>
-                            {% else %}
-                            <a class="nav-link{% if request.path == login_url %} active" aria-current="page{% endif %}"
-                                href="{{login_url}}">Login
-                            </a>
+                            <li class="nav-item ms-auto">
+                                <a class="nav-link{% if request.path == logout_url %} active" aria-current="page{% endif %}"
+                                    href="{{logout_url}}">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.path == profile_url %} active"
+                                aria-current="page{% endif %}" href="{{ profile_url }}">My Profile</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item ms-auto">
+                                <a class="nav-link{% if request.path == login_url %} active" aria-current="page{% endif %}"
+                                    href="{{login_url}}">Login</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link {% if request.path == register_url %} active"
                                     aria-current="page{% endif %}" href="{{ register_url }}">Register</a>
                             </li>
-                            {% endif %}
-                        </li>
-                        {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path == profile_url %} active"
-                            aria-current="page{% endif %}" href="{{ profile_url }}">My Profile</a>
-                        </li>
                         {% endif %}
                     </ul>
                 </div>                
@@ -118,7 +116,7 @@
             <header class="row">
                 <h1 class="my-4 col-12">Welcome to Vinyl Potpourri {% if user.is_authenticated %} - {{ user }}
                 {% endif %}</h1>                
-                {% block header-image %} <img class="col-12" src="{% static 'images/vinyl-potpourri-land200.png' %}">
+                {% block header-image %} <img class="col-12" src="{% static 'images/vinyl-potpourri-land200.png' %}" alt="Vinyl Potpourri Hero - multicoloured record">
                 {% endblock header-image %}
                 <hr>
             </header>
