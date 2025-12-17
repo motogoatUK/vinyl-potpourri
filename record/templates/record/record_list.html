@@ -55,11 +55,12 @@
         <table class="table table-dark table-striped">
             <thead>
                 <tr class="title-font">
-                    <th>
-                        Title <a href="?ordering=a_side"><i class="ps-2 fa fa-sort-asc" aria-hidden="true"></i></a>
-                         Sort <a href="?ordering=-a_side"><i class="ps-2 pe-4 fa fa-sort-desc" aria-hidden="true"></i></a>
-                        Artist <a href="?ordering=artist"><i class="ps-2 fa fa-sort-asc" aria-hidden="true"></i></a>
-                         Sort <a href="?ordering=-artist"><i class="ps-2 fa fa-sort-desc" aria-hidden="true"></i></a>
+                    <th id="table-header"><a aria-label="sort by title ascending" href="?ordering=a_side#table-header"><i class="ps-2 fa fa-sort-asc" aria-hidden="true"></i></a>
+                        Title 
+                        <a aria-label="sort by title descending" href="?ordering=-a_side#table-header"><i class="ps-2 pe-4 fa fa-sort-desc" aria-hidden="true"></i></a>
+                        <a aria-label="sort by title ascending" href="?ordering=artist#table-header"><i class="ps-2 fa fa-sort-asc" aria-hidden="true"></i></a>
+                        Artist
+                        <a aria-label="sort by title descending" href="?ordering=-artist#table-header"><i class="ps-2 fa fa-sort-desc" aria-hidden="true"></i></a>
                     </th>
                     <th id="b-side" class="d-none d-md-table-cell">B Side</th>
                     <th id="spindle">Spindle</th>
@@ -74,7 +75,7 @@
                         {% else %}copy-bold custom-md-nowrap">{{record}}</td>{% endif %}
 
                         <td class="d-none d-md-table-cell">{{record.b_side}}</td>
-                        <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
+                        <td class="spindle">{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
                         <td><a href="{% url 'view_record' record.slug %}">{{record.slug}}</a></td>
                     </tr>
                 {% endfor %}

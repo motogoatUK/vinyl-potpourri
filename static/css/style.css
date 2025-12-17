@@ -111,7 +111,7 @@ h1, h2 {font-family: var(--heading-font);
 }
 .custom-md-nowrap {
     white-space: normal;
-    min-width:244px;
+    min-width:195px;
 }
 /* article styling */
 .article-box {
@@ -219,6 +219,12 @@ footer i:hover {
 }
 
 /* Media Queries */
+/* hide spindle column on table below 408px wide screens to avoid side scroll */
+@media (max-width: 408px){
+    #spindle, .spindle {
+    display:none;
+    }
+}
 /* sm breakpoint */
 @media (min-width:576px){
     .article-box {
