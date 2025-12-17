@@ -34,10 +34,12 @@ def index(request):
 def view_collection(request, id):
     """
     Gets a list of records from collection
-    and sends them to the template
+    and sends them to the template. Utilises the 'visible'
+    queryset from records.model to hide record where applicable.
     """
-    record_list = Record.objects.filter(collection=id).order_by('id')
     collection = get_object_or_404(Collection, pk=id)
+    record_list = (Record.objects.visible(request.user)
+                   .filter(collection=id).order_by('id'))
     template = 'record/record_list.html'
     context = {
         "object_list": record_list,

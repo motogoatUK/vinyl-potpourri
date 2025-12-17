@@ -70,7 +70,9 @@
                 <!-- loop through records -->
                 {% for record in object_list %}
                     <tr>
-                        <td class="copy-bold custom-md-nowrap">{{record}}</td>
+                        <td class="{% if record.hide_record %}text-muted custom-md-nowrap">{{record}} <span class="small ms-2"> [hidden from view]</span></td>
+                        {% else %}copy-bold custom-md-nowrap">{{record}}</td>{% endif %}
+
                         <td class="d-none d-md-table-cell">{{record.b_side}}</td>
                         <td>{% if record.large_hole %}Large{% else %}Small{% endif %}</td>
                         <td><a href="{% url 'view_record' record.slug %}">{{record.slug}}</a></td>
