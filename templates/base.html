@@ -42,7 +42,7 @@
     <!-- dflex flex-column and min-vh-100 sets the conatier to be full viewport height -->
     <div id="outer-container" class="container-fluid d-flex flex-column min-vh-100">
         <!-- navbar sticky and shown above sm size -->
-        <nav id="navbar" class="navbar navbar-expand-sm sticky-top navbar-dark bg-dark px-2">
+        <nav id="navbar" class="navbar navbar-expand-md sticky-top navbar-dark bg-dark px-2">
             <div class="container-xxl">
                 <a class="navbar-brand" href="{{ home_url }}">Vinyl Potpourri</a>
                 <!-- navbar toggle code from bootstrap docs -->
@@ -53,7 +53,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- flex-fill make the navbar ul fill the width of navbar -->
-                    <ul class="nav flex-fill d-block d-sm-flex">
+                    <ul class="nav flex-fill d-block d-md-flex">
                         <li class="nav-item">
                             <a class="nav-link{% if request.path == home_url %} active" aria-current="page{% endif %}"
                                 href="{{ home_url }}">Home</a>
@@ -72,7 +72,7 @@
                         </li>
                         {% if user.is_authenticated %}
                         <!-- ms-auto moves these items to the right side of the navbar -->
-                            <li class="nav-item ms-auto">
+                            <li class="nav-item ms-lg-auto">
                                 <a class="nav-link{% if request.path == logout_url %} active" aria-current="page{% endif %}"
                                     href="{{logout_url}}">Logout</a>
                             </li>
