@@ -15,14 +15,16 @@ class TestCollectionViews(TestCase):
         )
 
     def test_index_view(self):
-        """ verifies get request contains index page """
+        """verifies get request contains index page
+        with collections in order"""
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         # check template used is correct
         self.assertTemplateUsed(response, 'index.html')
         # check view contains Collection context
-        self.assertSetEqual(
-            response.context['collection_list'], Collection.objects.all())
+        self.assertQuerySetEqual(
+            response.context['collection_list'],
+            Collection.objects.order_by('-id'))
 
     def test_collection_view(self):
         response = self.client.get('/collection/1/')
